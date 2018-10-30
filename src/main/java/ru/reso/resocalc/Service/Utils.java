@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 /**
  *
  * @author SHAPPN
+ *
+ * Тут собраны разные утилиты, которые используются для работы с логами.
+ *
  */
 public class Utils {
 

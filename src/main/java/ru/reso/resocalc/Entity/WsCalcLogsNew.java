@@ -5,14 +5,20 @@
  */
 package ru.reso.resocalc.Entity;
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
+
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
- * @author SHAPPN
+ * @author ROMAB
+ *
+ * По сути класс основного логгирования.
  */
-public class WsCalcLogsNew implements Serializable {
+public class WsCalcLogsNew implements Serializable, CalcEntity {
 
     private static final long serialVersionUID = 1L;
     private Long calcid; // BL расчета
@@ -71,7 +77,7 @@ public class WsCalcLogsNew implements Serializable {
     private Integer carDamageQuanityManual = -1; //Количество убытков (указал пользователь)
     private String isanothersk = ""; //Страхователь перешел из другой СК
     private Long insurer = -1L; // Код страховой компании , из которой перешел страхователь
-    private Long ownerregion = -1L; //Регион места жительства собственика КАСКО
+    private Long owner_region = -1L; //Регион места жительства собственика КАСКО
     private String driverlisttype = ""; //Тип списка лиц допущенных к управлению
     private Long carmodelcode = -1L; //Код модели ТС
     private String driverlisttypeosago = ""; //Тип списка лиц допущенных к управлению ОСАГО
@@ -84,6 +90,7 @@ public class WsCalcLogsNew implements Serializable {
     private String equifaxerrmsg; //Ошибка EquiFax
     private int policyType;     //Тип полиса (0 - первоначальный, 1 - пролонгация)
     private int customKb;     //Дельта КВ,  указанная пользователем
+    private LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
 
 
     public WsCalcLogsNew() {
@@ -535,11 +542,11 @@ public class WsCalcLogsNew implements Serializable {
     }
 
     public Long getOwnerRegion() {
-        return ownerregion;
+        return owner_region;
     }
 
     public void setOwnerRegion(Long ownerregion) {
-        this.ownerregion = ownerregion;
+        this.owner_region = ownerregion;
     }
 
     @Override
@@ -551,7 +558,7 @@ public class WsCalcLogsNew implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof WsCalcLogsNew)) {
             return false;
         }
@@ -609,11 +616,11 @@ public class WsCalcLogsNew implements Serializable {
     }
 
     public Long getOwnerregion() {
-        return ownerregion;
+        return owner_region;
     }
 
     public void setOwnerregion(Long ownerregion) {
-        this.ownerregion = ownerregion;
+        this.owner_region = ownerregion;
     }
 
     public Integer getCarYear() {
@@ -694,5 +701,17 @@ public class WsCalcLogsNew implements Serializable {
 
     public void setCustomKb(int customKb) {
         this.customKb = customKb;
+    }
+
+    public HashMap<String, String> getHash() {
+        return hash;
+    }
+
+    public void addToHash(String key, String value) {
+        this.hash.put(key, value);
+    }
+
+    public void addToHashAll(LinkedHashMap<String, String> map) {
+        this.hash.putAll(map);
     }
 }
