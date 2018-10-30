@@ -6,11 +6,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
 import javax.sql.rowset.WebRowSet;
 
 
-import ru.reso.resocalc.Entity.VarientType;
 import ru.reso.resocalc.Entity.WsCalcLogsNew;
 import ru.reso.resocalc.Utils.sqlLogging;
 import ru.reso.wp.srv.db.models.StmtParam;
@@ -36,6 +34,8 @@ public class WsCalcLogDao {
     public static Object searchInClassFieldsAndGet(Object anyClass, String name) {
 
         Object var = new Object();
+        String lookingForField = "МЫ ИЩЕМ  -  " + name;
+        Logger.getLogger("").log(Level.SEVERE, lookingForField, "!!!");
 
         try {
 
@@ -44,10 +44,45 @@ public class WsCalcLogDao {
             for (Field field : clazz.getDeclaredFields()) {
                 if (name != null && (field.getName()) != null) {
 
+                 //   Logger.getLogger("").log(Level.SEVERE, "Имя искомого поля и имя поля, вытаскиваемого из класса не ноль", "!!!");
+
                     if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
-                        //var.setBIGINTVALUE(15);
-                        //var.setType(Types.BIGINT);
-                        var = new Long(15);
+
+                        Logger.getLogger("").log(Level.SEVERE, "Нашли поле в классе", "!!!");
+
+                        // Теперь, когда мы нашли поле, нам надо попробовать вытащить его тип.
+
+                        //if (field.getType().isInstance(long.class)) {
+                        if (field.getType().isAssignableFrom(Long.class)) {
+                            try {
+                                Logger.getLogger("").log(Level.SEVERE, "Поле являеется Лонг", "!!!");
+
+                                field.setAccessible(true);
+                                var = (Long) field.get(anyClass);
+                                String catchedValue = "Мы поймали - " + String.valueOf(var);
+                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (field.getType().isAssignableFrom(int.class)){
+                            try {
+                                Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
+                                field.setAccessible(true);
+                                var = (Integer) field.get(anyClass);
+                                String catchedValue = "Мы поймали - " + String.valueOf(var);
+                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            //Logger.getLogger("").log(Level.SEVERE, "Поле НЕ Лонг", "!!!");
+                            //String tempType = "А поле у нас - " + field.getType().toString();
+                            //Logger.getLogger("").log(Level.SEVERE, tempType, "!!!");
+                            var = new Long(15);
+
+                        }
+
+                        //var = new Long(15);
                     }
                 }
             }
@@ -58,6 +93,10 @@ public class WsCalcLogDao {
         return var;
     }
 
+    public static int getLocalFieldType(Object anyClass, String name) {
+        return Types.NUMERIC;
+    }
+
     public static Boolean searchInClassFields(Object anyClass, String name) {
         //public static Boolean searchInClassFields(WsCalcLogsNew anyClass, String name) {
 
@@ -66,7 +105,7 @@ public class WsCalcLogDao {
         //Logger.getLogger("").log(Level.SEVERE, "ПИЗДЕЦОК", "Мы получили класс");
 
         for (Field field : anyClass.getClass().getFields()) {
-            System.out.println(field.getName());
+            //     System.out.println(field.getName());
             //Logger.getLogger("").log(Level.SEVERE, "ХЕРЬ", "Мы нашли поле");
 
             if (name != null && (field.getName()) != null) {
@@ -81,7 +120,7 @@ public class WsCalcLogDao {
             Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
 
             for (Field field : clazz.getDeclaredFields()) {
-                Logger.getLogger("").log(Level.SEVERE, "ХЕРЬ-3", "Мы нашли поле");
+                //      Logger.getLogger("").log(Level.SEVERE, "ХЕРЬ-3", "Мы нашли поле");
                 if (name != null && (field.getName()) != null) {
                     if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
                         result = true;
@@ -195,11 +234,17 @@ public class WsCalcLogDao {
                         if (isFound) {
                             switch (type) {
                                 case Types.NUMERIC:
-                                    Logger.getLogger("").log(Level.SEVERE, "Цифирь", "Мы нашли поле");
+                                    //    Logger.getLogger("").log(Level.SEVERE, "Цифирь", "Мы нашли поле");
+
+
+                                    /**Теперь надо сконвертить тип поля из класса в тип поля SQL. Связано это с тем, что SQL возвращает везде NUMERIC,
+                                     * А в классах есть и long, и double, и integer.
+                                     */
+                                    int typeForParamList = getLocalFieldType(wsCalcLogsNew, rsmd.getColumnName(i));
+
+
                                     // Ищем поле с таким именем в классе
-
-
-                                    paramList.add(new StmtParam(Types.BIGINT, searchInClassFieldsAndGet(wsCalcLogsNew, rsmd.getColumnName(i))));
+                                    paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wsCalcLogsNew, rsmd.getColumnName(i))));
 
                                     /**
                                      * 1. ЦИКЛ ПО ВСЕМ ПОЛЯМ У НАС УЖЕ ЕСТЬ. МЫ В НЕМ
@@ -208,10 +253,10 @@ public class WsCalcLogDao {
                                      * 4. ПИХНУТЬ В ПАРАМЛИСТ
                                      */
                                 case Types.VARCHAR:
-                                    Logger.getLogger("").log(Level.SEVERE, "Слово", "Мы нашли поле");
+
 
                                 case Types.TIMESTAMP:
-                                    Logger.getLogger("").log(Level.SEVERE, "ДАТА", "Мы нашли поле");
+                                    //         Logger.getLogger("").log(Level.SEVERE, "ДАТА", "Мы нашли поле");
 
                             }
 
@@ -225,7 +270,7 @@ public class WsCalcLogDao {
 
                         for (StmtParam field : paramList) {
 
-                            Logger.getLogger("").log(Level.SEVERE, String.valueOf(field.getLong()), "Мы нашли поле");
+                       //     Logger.getLogger("").log(Level.SEVERE, String.valueOf(field.getValue()), "Мы нашли поле");
 
                         }
 
