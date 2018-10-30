@@ -1,6 +1,8 @@
 package ru.reso.resocalc.Service;
 
 import ru.reso.resocalc.Entity.MyStmtParamList;
+import ru.reso.wp.srv.db.models.StmtParam;
+import ru.reso.wp.srv.db.models.StmtParamList;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class FileLog {
@@ -143,12 +146,13 @@ public class FileLog {
 
         String varName = "";
         String varType = "";
+        Integer varTypeReal = 0;
         Object varValue;
         String varValueStr;
         String separator = " - ";
         String str = "";
 
-        String file = "D:/log777_7.txt";
+        String file = "D:/myParamList.txt";
         ObjectOutput out = null;
         deleteFileIfExist(file);
 
@@ -160,16 +164,16 @@ public class FileLog {
         for (int i = 0; i < size; i++) {
             varName = paramList.get(i).getFieldName();
             varType = paramList.get(i).getFieldType();
+            varTypeReal = paramList.get(i).getType();
             varValue = paramList.get(i).getValue();
             varValueStr = String.valueOf(varValue);
-            str = varName + separator + varType + separator + varValue;
+            str = varName + separator + varTypeReal + separator + varType + separator + varValue;
             writer.write(str + "\n");
 
             if (i < size - 1)
                 writer.write("\n");
         }
 
-        //writer.write("CURRENT REPORT = " + reportName  + "\n");
         writer.close();
 
     }
@@ -185,5 +189,67 @@ public class FileLog {
 
     }
 
+
+    public void saveAllReportPanels4(String s, StmtParamList paramList) throws IOException {
+
+        String varName = "";
+        //String varType = "";
+        Object varValue;
+        Object varType;
+        String varValueStr;
+        String separator = " - ";
+        String str = "";
+
+        String file = s;
+        ObjectOutput out = null;
+        deleteFileIfExist(file);
+
+
+        FileWriter writer = new FileWriter(file);
+
+
+        int size = paramList.size();
+        for (int i = 0; i < size; i++) {
+
+            varType = paramList.get(i).getType();
+            varValue = paramList.get(i).getValue();
+
+            str = varType + separator + varValue;
+            writer.write(str + "\n");
+
+            if (i < size - 1)
+                writer.write("\n");
+        }
+
+
+        writer.close();
+
+    }
+
+    public void compare2ArrayList(StmtParamList paramList1, StmtParamList paramList2) throws IOException {
+
+
+        StmtParamList notExistInSecoondList = new StmtParamList();
+        StmtParamList notExistInFirstList = new StmtParamList();
+
+        for (StmtParam ele : paramList1) {
+            if (paramList2.contains(ele)) {
+                continue;
+            } else {
+                notExistInSecoondList.add(ele);
+            }
+        }
+        for (StmtParam ele : paramList2) {
+            if (paramList1.contains(ele)) {
+                continue;
+            } else {
+                notExistInFirstList.add(ele);
+            }
+        }
+
+        this.saveAllReportPanels4("D:/notExistInSecoondList.txt", notExistInSecoondList);
+        this.saveAllReportPanels4("D:/notExistInFirstList.txt", notExistInFirstList);
+
+    }
 
 }

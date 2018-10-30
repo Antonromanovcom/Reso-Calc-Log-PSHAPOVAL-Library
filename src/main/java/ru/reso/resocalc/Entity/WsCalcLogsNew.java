@@ -71,7 +71,7 @@ public class WsCalcLogsNew implements Serializable {
     private Integer carDamageQuanityManual = -1; //Количество убытков (указал пользователь)
     private String isanothersk = ""; //Страхователь перешел из другой СК
     private Long insurer = -1L; // Код страховой компании , из которой перешел страхователь
-    private Long ownerregion = -1L; //Регион места жительства собственика КАСКО
+    private Long owner_region = -1L; //Регион места жительства собственика КАСКО
     private String driverlisttype = ""; //Тип списка лиц допущенных к управлению
     private Long carmodelcode = -1L; //Код модели ТС
     private String driverlisttypeosago = ""; //Тип списка лиц допущенных к управлению ОСАГО
@@ -535,11 +535,11 @@ public class WsCalcLogsNew implements Serializable {
     }
 
     public Long getOwnerRegion() {
-        return ownerregion;
+        return owner_region;
     }
 
     public void setOwnerRegion(Long ownerregion) {
-        this.ownerregion = ownerregion;
+        this.owner_region = ownerregion;
     }
 
     @Override
@@ -609,11 +609,11 @@ public class WsCalcLogsNew implements Serializable {
     }
 
     public Long getOwnerregion() {
-        return ownerregion;
+        return owner_region;
     }
 
     public void setOwnerregion(Long ownerregion) {
-        this.ownerregion = ownerregion;
+        this.owner_region = ownerregion;
     }
 
     public Integer getCarYear() {

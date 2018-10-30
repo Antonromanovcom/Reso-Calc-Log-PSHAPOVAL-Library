@@ -235,22 +235,25 @@ public interface sqlLogging {
             + " EQUIPMENT, "
             + " OSAGO, "
             + " DGO, "
-            + " CRASH,"
             + " PNUMBER, "
             + " COMMERCPROGRAMMID, "
+            + " CAROWNERTYPEID, "
+            + " INSURANTTYPEID, "
             + " CARDAMAGEQUANITYMANUAL, "
             + " ISANOTHERSK, "
             + " INSURER,"
             + " OWNER_REGION, "
             + " DRIVERLISTTYPE, "
             + " CARMODELCODE, "
-            + " DRIVERLISTTYPEOSAGO, "
             + " POLICY,"
+            + " DRIVERLISTTYPEOSAGO, "
             + " CARYEAR, "
             + " ADMUSER, "
+            + " CRASH,"
             + " HOLDERREQUESTID, "
             + " OWNERREQUESTID, "
             + " EQUIFAXSCORE, "
+            + " EQUIFAXERRMSG, "
             + " POLICYTYPE, "
             + " CUSTOMKB)"
             + " values (?,?,?,?,?,?,?,?,?,?,"
@@ -258,7 +261,7 @@ public interface sqlLogging {
             +          "?,?,?,?,?,?,?,?,?,?,"
             +          "?,?,?,?,?,?,?,?,?,?,"
             +          "?,?,?,?,?,?,?,?,?,?,"
-            +          "?,?,?,?,?,?,"
+            +          "?,?,?,?,?,?,?,?,?,"
             +          "?,?,?,?,?,?,?,?,?,?)";
 
 
@@ -492,5 +495,6 @@ public interface sqlLogging {
             = " select * from WS_CALC_LOGS_NEW t "
             + " where t.calcid = ?";
 
-
+    final String SQL_TEST_CALC_ID
+            = "select * from (select * from WS_CALC_LOGS_NEW t order by t.calcid)  where ROWNUM < 11";
 }

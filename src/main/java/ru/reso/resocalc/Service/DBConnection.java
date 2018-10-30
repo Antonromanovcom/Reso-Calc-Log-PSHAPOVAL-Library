@@ -76,7 +76,14 @@ public class DBConnection extends ResoRemoteObject {
         //return getResobj_EjbDatabaseInteraction().prepareStatementExecuteQuery(currentDB, aSQL, aStmtParamList);
     }
 
-    public String prepareStatementExecuteUpdate(String aSQL, StmtParamList aStmtParamList) throws SQLException {
-        return getResobj_EjbDatabaseInteraction().prepareStatementExecuteQuery(aSQL, aStmtParamList);
+    public Integer prepareStatementExecuteUpdate(String aSQL, StmtParamList aStmtParamList) throws SQLException {
+        return getResobj_EjbDatabaseInteraction().prepareStatementExecuteUpdate(aSQL, aStmtParamList);
     }
+
+    public String prepareStatementExecuteQueryWOParametrs(String aSQL) throws SQLException {
+        return getResobj_EjbDatabaseInteraction().prepareStatementExecuteQueryWOParametrs(aSQL);
+    }
+
+
+
 }

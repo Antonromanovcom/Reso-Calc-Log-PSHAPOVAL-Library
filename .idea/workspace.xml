@@ -39,28 +39,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WsCalcLogDao.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WsCalcLogDao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/WsCalcLogDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="706">
-              <caret line="695" column="13" lean-forward="false" selection-start-line="695" selection-start-column="13" selection-end-line="695" selection-end-column="13" />
+            <state relative-caret-position="295">
+              <caret line="354" column="86" lean-forward="false" selection-start-line="354" selection-start-column="86" selection-end-line="354" selection-end-column="86" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="docComment;class#WsCalcLogDao#0" expanded="false" />
-                <element signature="method#searchInClassFieldsAndGet#0;class#WsCalcLogDao#0" expanded="false" />
-                <element signature="e#3028#3090#0" expanded="false" />
-                <element signature="e#3738#3800#0" expanded="false" />
-                <element signature="e#6571#6597#0" expanded="false" />
-                <element signature="method#getLocalFieldType#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="method#addLogAutomative#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="method#getTestCalcId#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="method#getFullWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="method#getWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="method#addLog#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="e#11724#11786#0" expanded="false" />
+                <element signature="e#14813#14839#0" expanded="false" />
                 <element signature="method#searchInClassFields#0;class#WsCalcLogDao#0" expanded="false" />
                 <element signature="method#paramListGenerator#0;class#WsCalcLogDao#0" expanded="false" />
-                <element signature="e#13556#13591#0" expanded="false" />
-                <element signature="e#15454#15523#0" expanded="false" />
-                <element signature="e#15873#15970#0" expanded="false" />
                 <element signature="method#fieldTypeToStr#0;class#WsCalcLogDao#0" expanded="false" />
                 <element signature="method#getLogByCalcID#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="e#26653#26734#0" expanded="false" />
                 <element signature="method#webRowSet2WsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
                 <element signature="method#UpdateWsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
+                <element signature="method#getMockObject#0;class#WsCalcLogDao#0" expanded="false" />
                 <element signature="method#getRNIR#0;class#WsCalcLogDao#0" expanded="false" />
                 <element signature="method#generateString#0;class#WsCalcLogDao#0" expanded="false" />
               </folding>
@@ -68,11 +68,85 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sqlLogging.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MyStmtParamList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParamList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="7" column="53" lean-forward="false" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyStmtParam.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParam.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WsCalcLogsNew.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/WsCalcLogsNew.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="358">
+              <caret line="77" column="37" lean-forward="false" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
+              <folding>
+                <element signature="docComment;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#WsCalcLogsNew#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#setNotapplyspecprogdiscount#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#setCaraccidentplaceinssum#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#setCarextequipmentinssum#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#setKbmcheckcardiagnisticcard#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#setCarDamageQuanityManual#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#hashCode#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="method#equals#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="docComment;method#getDriverlisttype#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="docComment;method#setDriverlisttype#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="docComment;method#getDriverlisttypeosago#0;class#WsCalcLogsNew#0" expanded="false" />
+                <element signature="docComment;method#setDriverlisttypeosago#0;class#WsCalcLogsNew#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileLog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/FileLog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="451">
+              <caret line="168" column="51" lean-forward="false" selection-start-line="168" selection-start-column="51" selection-end-line="168" selection-end-column="51" />
+              <folding>
+                <element signature="method#appendLogEntry#0;class#FileLog#0" expanded="false" />
+                <element signature="method#addLogEntry#0;class#FileLog#0" expanded="false" />
+                <element signature="method#addLogEntry2#0;class#FileLog#0" expanded="false" />
+                <element signature="method#addLogHashMap#0;class#FileLog#0" expanded="false" />
+                <element signature="method#saveAllReportPanels#0;class#FileLog#0" expanded="false" />
+                <element signature="method#saveAllReportPanels2#0;class#FileLog#0" expanded="false" />
+                <element signature="method#deleteFileIfExist#0;class#FileLog#0" expanded="false" />
+                <element signature="method#saveAllReportPanels4#0;class#FileLog#0" expanded="false" />
+                <element signature="method#compare2ArrayList#0;class#FileLog#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBConnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/DBConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="38" column="15" lean-forward="false" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sqlLogging.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/sqlLogging.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="260" column="36" lean-forward="false" selection-start-line="260" selection-start-column="36" selection-end-line="260" selection-end-column="36" />
+            <state relative-caret-position="422">
+              <caret line="267" column="47" lean-forward="true" selection-start-line="267" selection-start-column="47" selection-end-line="267" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -84,6 +158,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -94,6 +169,7 @@
       <find>caruser</find>
       <find>carpu</find>
       <find>executeU</find>
+      <find>isass</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -111,16 +187,17 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/WsPremium.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/main/Main.java" />
         <option value="$MAVEN_REPOSITORY$/ru/reso/wp/reso-server-interact/1.0.1/reso-server-interact-1.0.1.jar!/ru/reso/wp/srv/ejb/DatabaseInteractionRemote.class" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/WsCalcLogsNew.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/WsCoeffCalcDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/Utils.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/VarientType.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParamList.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParam.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/FileLog.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/WsLogDictonary.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/aORM.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/DBConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/FileLog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/WsCalcLogsNew.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/WsCalcLogDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/sqlLogging.java" />
       </list>
@@ -156,8 +233,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
+    <option name="x" value="424" />
+    <option name="width" value="1376" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
@@ -175,7 +252,40 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="DB Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="DB Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="9b3d18fa-3294-47b2-8604-b42733f3c5d9" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+            </path>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+            </path>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+              <item name="schema" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -264,39 +374,6 @@
             <path>
               <item name="1.1 (trying to configure Maven)" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches">
-        <subPane>
-          <expand>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="DB Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="DB Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="9b3d18fa-3294-47b2-8604-b42733f3c5d9" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
-              <item name="schema" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
             </path>
           </expand>
           <select />
@@ -477,31 +554,34 @@
       <workItem from="1533020184542" duration="9784000" />
       <workItem from="1533106842588" duration="1201000" />
       <workItem from="1533190263324" duration="33026000" />
-      <workItem from="1533539360068" duration="24980000" />
+      <workItem from="1533539360068" duration="35580000" />
+      <workItem from="1533711034402" duration="1997000" />
+      <workItem from="1533713040877" duration="28822000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149313000" />
+    <option name="totallyTimeSpent" value="190732000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5063966" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08155651" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.50852877" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1673774" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288889" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288889" sideWeight="0.4914712" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18123667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18496802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22867803" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -513,8 +593,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -555,7 +635,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -564,57 +644,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/DBConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="14" column="2" lean-forward="false" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/sqlLogging.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6851">
-          <caret line="407" column="34" lean-forward="false" selection-start-line="407" selection-start-column="34" selection-end-line="407" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/FileLog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/main/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/WsCalcLogDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#searchInClassFieldsAndGet#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#3028#3090#0" expanded="false" />
-            <element signature="e#3738#3800#0" expanded="false" />
-            <element signature="e#6571#6597#0" expanded="false" />
-            <element signature="method#getLocalFieldType#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#searchInClassFields#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#paramListGenerator#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#13556#13591#0" expanded="false" />
-            <element signature="e#15454#15523#0" expanded="false" />
-            <element signature="e#15873#15970#0" expanded="false" />
-            <element signature="method#fieldTypeToStr#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#getLogByCalcID#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#webRowSet2WsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#UpdateWsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#getRNIR#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#generateString#0;class#WsCalcLogDao#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/DBConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -628,22 +657,22 @@
         <state relative-caret-position="697">
           <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="docComment;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#searchInClassFieldsAndGet#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#3028#3090#0" expanded="false" />
-            <element signature="e#3738#3800#0" expanded="false" />
-            <element signature="e#6571#6597#0" expanded="false" />
-            <element signature="method#getLocalFieldType#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#addLogAutomative#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getTestCalcId#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getFullWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#addLog#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="e#11724#11786#0" expanded="false" />
+            <element signature="e#14813#14839#0" expanded="false" />
             <element signature="method#searchInClassFields#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#paramListGenerator#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#13556#13591#0" expanded="false" />
-            <element signature="e#15454#15523#0" expanded="false" />
-            <element signature="e#15873#15970#0" expanded="false" />
             <element signature="method#fieldTypeToStr#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#getLogByCalcID#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="e#26653#26734#0" expanded="false" />
             <element signature="method#webRowSet2WsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#UpdateWsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getMockObject#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#getRNIR#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#generateString#0;class#WsCalcLogDao#0" expanded="false" />
           </folding>
@@ -687,22 +716,22 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="docComment;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#searchInClassFieldsAndGet#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#3028#3090#0" expanded="false" />
-            <element signature="e#3738#3800#0" expanded="false" />
-            <element signature="e#6571#6597#0" expanded="false" />
-            <element signature="method#getLocalFieldType#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#addLogAutomative#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getTestCalcId#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getFullWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#addLog#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="e#11724#11786#0" expanded="false" />
+            <element signature="e#14813#14839#0" expanded="false" />
             <element signature="method#searchInClassFields#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#paramListGenerator#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#13556#13591#0" expanded="false" />
-            <element signature="e#15454#15523#0" expanded="false" />
-            <element signature="e#15873#15970#0" expanded="false" />
             <element signature="method#fieldTypeToStr#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#getLogByCalcID#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="e#26653#26734#0" expanded="false" />
             <element signature="method#webRowSet2WsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#UpdateWsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getMockObject#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#getRNIR#0;class#WsCalcLogDao#0" expanded="false" />
             <element signature="method#generateString#0;class#WsCalcLogDao#0" expanded="false" />
           </folding>
@@ -812,7 +841,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="49" lean-forward="false" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -820,7 +848,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="141">
           <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,26 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#374#375#0" expanded="false" />
-            <element signature="e#401#402#0" expanded="false" />
-            <element signature="e#440#441#0" expanded="false" />
-            <element signature="e#472#473#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ru/reso/wp/reso-server-interact/1.0.1/reso-server-interact-1.0.1.jar!/ru/reso/wp/srv/db/models/StmtParam.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/ru/reso/wp/reso-server-interact/1.0.1/reso-server-interact-1.0.1.jar!/ru/reso/wp/srv/db/models/StmtParamList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -881,160 +888,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/WsLogDictonary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#WsLogDictonary#0" expanded="false" />
-            <element signature="class#CalcRequest#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="class#PartnerType#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#minPremium#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#basicSum#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#carCostManual#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#perDam#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#cascoMaxKvs#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#kbmCoeffFinalCasco#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#cascoProgrammStoaCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#dedDiscount#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#programDiscount#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#validityCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#payPeriodCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#coeffRegionDam#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#bankCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#carAgeCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#autodexCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#agentCoeffThf#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#policyPeriodCoeffThf#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoBaseTariff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tariffHelp#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tariffHelpComfort#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tariffHelpSpec#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#discount#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#validityCoeffGap#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#damageNewBuisnessCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#kbmCoeffFinalOsago#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#carAgeCoeffDGO#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#carParkCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#insTariffOsagoCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#coverTerritoryCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#thfOnlyCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#extraCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#agentWhiteListCorrectCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoTerrCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoUsePeriodCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoCarUsedTrailerCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoPowerCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoMaxKvs#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoFinalCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#dgoMaxKvs#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#dgoNewBusinessCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#dgoCarUsedTrailerCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#helpPeriodCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#accidentULAgentCommCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#agentCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#validityExtCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#audaHistoryCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#greenLightcoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#juridicalCoeffThf#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#perThf#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#thfSearchingSystemCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#coeffKBU#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tarifGap#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#lBaseTariff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#carAccidentPlaceInsSum#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#carAccidentPlaceNum#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#agentCoeffDam#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#policyPeriodCoeffDam#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#juridicalCoeffDam#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#correctCoeffGap#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#juridicalCoeffGap#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#coeffRegionCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#correctCoeffCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#agentCoeffEquipment#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#policyPeriodCoeffEquipment#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tariffEquipment#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#juridicalCoeffEquipment#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tariffAccident#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#tariffDGO#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoKO#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#osagoKP#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#notAlternativeAction#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#franchiseDiscount#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#damCoefVIP#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#coeffOnlyDamage#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#basePremiumCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#kvsCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#stoaCoeffCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#minPremiumCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#validityCoeffCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#agentCoeffCrash#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#equifaxCoeff#0;class#CalcCoeff#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMDAM#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMTHF#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMGAP#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMOSAGO#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMDGO#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMHELP#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMHELPCOMFORT#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMHELPSPEC#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMACCIDENT#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMTHFCRASH#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMEXTEQUIPMENT#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMHELPEVACUATION#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMHELPEMERGENCY#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMHELPAMBULANCE#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#HELPAVERAGECOMMISSIONER#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMCRASH#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMCASCORAP#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMDGOSPECOFFER#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PREMIUMCASCO#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumEvacuation#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumInv#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumGls#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumExtDam#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumExtThf#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumExtDth#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#premiumExtInv#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="docComment;field#PremiumExtGap#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-            <element signature="method#CalcPremium#0;class#CalcPremium#0;class#WsLogDictonary#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/ru/reso/wp/reso-server-interact/1.0.1/reso-server-interact-1.0.1.jar!/ru/reso/wp/srv/ejb/DatabaseInteractionRemote.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/WsLogDictonary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-799">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/aORM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/ru/reso/wp/reso-server-interact/1.0.1/reso-server-interact-1.0.1.jar!/ru/reso/wp/srv/db/models/StmtParamList.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="10" column="54" lean-forward="false" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/ru/reso/wp/reso-server-interact/1.0.1/reso-server-interact-1.0.1.jar!/ru/reso/wp/srv/db/models/StmtParam.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/DBConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="38" column="15" lean-forward="false" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/FileLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="168" column="51" lean-forward="false" selection-start-line="168" selection-start-column="51" selection-end-line="168" selection-end-column="51" />
+          <folding>
+            <element signature="method#appendLogEntry#0;class#FileLog#0" expanded="false" />
+            <element signature="method#addLogEntry#0;class#FileLog#0" expanded="false" />
+            <element signature="method#addLogEntry2#0;class#FileLog#0" expanded="false" />
+            <element signature="method#addLogHashMap#0;class#FileLog#0" expanded="false" />
+            <element signature="method#saveAllReportPanels#0;class#FileLog#0" expanded="false" />
+            <element signature="method#saveAllReportPanels2#0;class#FileLog#0" expanded="false" />
+            <element signature="method#deleteFileIfExist#0;class#FileLog#0" expanded="false" />
+            <element signature="method#saveAllReportPanels4#0;class#FileLog#0" expanded="false" />
+            <element signature="method#compare2ArrayList#0;class#FileLog#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParamList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="53" lean-forward="false" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/java/lang/Class.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="220" column="0" lean-forward="true" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/java/lang/Long.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/java/lang/String.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7-sources.jar!/org/apache/commons/lang3/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5010">
+          <caret line="116" column="13" lean-forward="false" selection-start-line="116" selection-start-column="13" selection-end-line="116" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/java/sql/Types.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        <state relative-caret-position="306">
+          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParamList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="51" lean-forward="false" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/WsCalcLogsNew.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="85" column="67" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="85" selection-end-column="67" />
+        <state relative-caret-position="358">
+          <caret line="77" column="37" lean-forward="false" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="docComment;class#WsCalcLogsNew#0" expanded="false" />
             <element signature="method#WsCalcLogsNew#0;class#WsCalcLogsNew#0" expanded="false" />
             <element signature="method#setNotapplyspecprogdiscount#0;class#WsCalcLogsNew#0" expanded="false" />
@@ -1052,69 +1032,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Entity/MyStmtParam.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/WsCalcLogDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/FileLog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+        <state relative-caret-position="295">
+          <caret line="354" column="86" lean-forward="false" selection-start-line="354" selection-start-column="86" selection-end-line="354" selection-end-column="86" />
           <folding>
-            <element signature="method#appendLogEntry#0;class#FileLog#0" expanded="false" />
-            <element signature="method#addLogEntry#0;class#FileLog#0" expanded="false" />
-            <element signature="method#addLogEntry2#0;class#FileLog#0" expanded="false" />
-            <element signature="method#addLogHashMap#0;class#FileLog#0" expanded="false" />
-            <element signature="method#saveAllReportPanels#0;class#FileLog#0" expanded="false" />
-            <element signature="method#saveAllReportPanels2#0;class#FileLog#0" expanded="false" />
+            <element signature="docComment;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#addLogAutomative#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getTestCalcId#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getFullWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getWebRowSet#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#addLog#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="e#11724#11786#0" expanded="false" />
+            <element signature="e#14813#14839#0" expanded="false" />
+            <element signature="method#searchInClassFields#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#paramListGenerator#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#fieldTypeToStr#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getLogByCalcID#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="e#26653#26734#0" expanded="false" />
+            <element signature="method#webRowSet2WsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#UpdateWsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getMockObject#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#getRNIR#0;class#WsCalcLogDao#0" expanded="false" />
+            <element signature="method#generateString#0;class#WsCalcLogDao#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/DBConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="80" column="5" lean-forward="false" selection-start-line="78" selection-start-column="3" selection-end-line="80" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Utils/sqlLogging.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="260" column="36" lean-forward="false" selection-start-line="260" selection-start-column="36" selection-end-line="260" selection-end-column="36" />
+        <state relative-caret-position="422">
+          <caret line="267" column="47" lean-forward="true" selection-start-line="267" selection-start-column="47" selection-end-line="267" selection-end-column="47" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/reso/resocalc/Service/WsCalcLogDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="695" column="13" lean-forward="false" selection-start-line="695" selection-start-column="13" selection-end-line="695" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#searchInClassFieldsAndGet#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#3028#3090#0" expanded="false" />
-            <element signature="e#3738#3800#0" expanded="false" />
-            <element signature="e#6571#6597#0" expanded="false" />
-            <element signature="method#getLocalFieldType#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#searchInClassFields#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#paramListGenerator#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="e#13556#13591#0" expanded="false" />
-            <element signature="e#15454#15523#0" expanded="false" />
-            <element signature="e#15873#15970#0" expanded="false" />
-            <element signature="method#fieldTypeToStr#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#getLogByCalcID#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#webRowSet2WsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#UpdateWsCalcLogsNew#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#getRNIR#0;class#WsCalcLogDao#0" expanded="false" />
-            <element signature="method#generateString#0;class#WsCalcLogDao#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

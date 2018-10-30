@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
@@ -16,7 +15,6 @@ import javax.sql.rowset.WebRowSet;
 import ru.reso.resocalc.Entity.MyStmtParam;
 import ru.reso.resocalc.Entity.MyStmtParamList;
 import ru.reso.resocalc.Entity.WsCalcLogsNew;
-import ru.reso.resocalc.Utils.WsLogDictonary;
 import ru.reso.resocalc.Utils.sqlLogging;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
@@ -27,26 +25,193 @@ import ru.reso.wp.srv.db.ResoDatabaseInvoke;
  */
 public class WsCalcLogDao {
 
+
+    public static void addLogAutomative(WsCalcLogsNew wscalclog) {
+        try {
+            String sql = sqlLogging.SQL_INSERT_WsCalcLogNEW2;
+            //Long calc = 122865290L;
+            Long calc = 122867771L;
+            FileLog fileLog = new FileLog();
+
+            Logger.getLogger("").log(Level.SEVERE, "Мы вошли в addLogAutomative", "1111");
+            StmtParamList paramList = paramListGenerator2(sql, wscalclog, calc);
+            //StmtParamList paramList = WsCalcLogsNew2StmtParamList(wscalclog);
+            StmtParamList paramList1 = WsCalcLogsNew2StmtParamList(wscalclog);
+
+            try {
+                fileLog.saveAllReportPanels4("D:/params_from_generator.txt", paramList);
+                fileLog.saveAllReportPanels4("D:/params_from_random.txt", paramList1);
+                // fileLog.compare2ArrayList(paramList, paramList1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            DBConnection conn = new DBConnection();
+            conn.prepareStatementExecuteUpdate(sql, paramList);
+
+            Logger.getLogger("").log(Level.SEVERE, "Мы добавили", "1111");
+        } catch (SQLException e) {
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
+        }
+    }
+
+    public static Long getTestCalcId() {
+
+        Long baseCalcId = null;
+        StmtParamList paramList = new StmtParamList();
+
+        try {
+
+            String sql1 = sqlLogging.SQL_TEST_CALC_ID;
+            WebRowSet rs = getFullWebRowSet(sql1);
+
+            if (rs != null) {
+                while (rs.next()) {
+                    //ResultSetMetaData rsmd = rs.getMetaData();
+                    Logger.getLogger("").log(Level.SEVERE, "Мы внутри вайла от getTestCalcId", "1111");
+                    //for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    baseCalcId = rs.getLong(1);
+                    //}
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
+        }
+
+        return baseCalcId;
+    }
+
+    private static StmtParamList paramListGenerator2(String sql, WsCalcLogsNew wscalclog, Long calcid) {
+
+        FileLog fileLog = new FileLog();
+        Long baseCalcId = 122865290L;
+        StmtParamList paramList = new StmtParamList();
+        MyStmtParamList myParamList = new MyStmtParamList();
+
+        try {
+
+            String sql1 = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
+            StmtParamList paramList1 = new StmtParamList();
+
+
+            //    String sql = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
+            //  StmtParamList paramList = new StmtParamList();
+            //MyStmtParamList myParamList = new MyStmtParamList();
+            paramList1.add(new StmtParam(Types.BIGINT, baseCalcId));
+            DBConnection conn = new DBConnection();
+            String rsStr = conn.prepareStatementExecuteQuery(sql1, paramList1);
+            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+
+
+            //WebRowSet rs = getWebRowSet(sql1, Types.BIGINT, baseCalcId);
+
+            // ----------------------------------- БЛОК ПРОВЕРКИ И ПАРСИНГА RS ----------------------------------------
+
+            if (rs != null) {
+                while (rs.next()) {
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    // Logger.getLogger("").log(Level.SEVERE, "Мы прошли проверку на ноль и рс.некст", "1111");
+                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+
+                        int type = rsmd.getColumnType(i); //Оракл-тип (данных) текущего поля
+
+                        // Определяем есть ли такое поле (на котором мы сейчас в результсете (rs.next)) вообще. Такое - в смысле с таким же именем
+                        Boolean isFound = searchInClassFields(wscalclog, rsmd.getColumnName(i));
+
+                        int typeForParamList = 0;
+
+                        // Если поле нашли, тогда надо проверить его тип и сконвертить Оракл тип к Java типу
+                        if (isFound) {
+                            switch (type) {
+                                case Types.NUMERIC:
+
+                                    /**Теперь надо сконвертить тип поля из класса в тип поля SQL. Связано это с тем, что SQL возвращает везде NUMERIC,
+                                     * А в классах есть и long, и double, и integer.
+                                     */
+                                    typeForParamList = getLocalFieldType(wscalclog, rsmd.getColumnName(i));
+                                    myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.NUMERIC)));
+
+                                    //Logger.getLogger("").log(Level.SEVERE, "Мы ставим тип - прошли проверку на ноль и рс.некст", "1111");
+
+                                    // Ищем поле с таким именем в классе
+                                    paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
+                                    break;
+
+                                case Types.VARCHAR:
+
+                                    typeForParamList = getLocalFieldType(wscalclog, rsmd.getColumnName(i));
+                                    paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
+                                    myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.VARCHAR)));
+                                    break;
+                                case Types.TIMESTAMP:
+
+                                    typeForParamList = getLocalFieldType(wscalclog, rsmd.getColumnName(i));
+                                    paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
+                                    myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.TIMESTAMP)));
+                                    break;
+                            }
+                        }
+
+                        try {
+                            fileLog.saveAllReportPanels4("D:/log777_1.txt", paramList);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            fileLog.saveAllReportPanels3(myParamList);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
+        }
+
+        return paramList;
+
+    }
+
+    private static WebRowSet getFullWebRowSet(String sql1) {
+
+        DBConnection conn = new DBConnection();
+        String rsStr = null;
+        WebRowSet rs = null;
+        try {
+            rsStr = conn.prepareStatementExecuteQueryWOParametrs(sql1);
+            rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+
+    }
+
+    private static WebRowSet getWebRowSet(String sql, int type, Long value) {
+
+        StmtParamList paramList = new StmtParamList();
+        paramList.add(new StmtParam(type, value));
+        DBConnection conn = new DBConnection();
+        String rsStr = null;
+        WebRowSet rs = null;
+        try {
+            rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
+            rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
+
     public static void addLog(WsCalcLogsNew wscalclog) {
         try {
             String sql = sqlLogging.SQL_INSERT_WsCalcLogNEW2;
             Long calc = 122867771L;
-            //String sql = "insert into webauto.WS_CALC_LOGS_NEW (CALCID)  values (?)";
             Logger.getLogger("").log(Level.SEVERE, "Мы вошли в Add", "1111");
-            String rtest = "Мы вытащили.... " + wscalclog.getCalcid();
-            Logger.getLogger("").log(Level.SEVERE, rtest, "1111");
             StmtParamList paramList = WsCalcLogsNew2StmtParamList(wscalclog);
-            //StmtParamList paramList = new StmtParamList();
-
-            //paramList.add(new StmtParam(Types.BIGINT, calc));//CALCID
-            //paramList.add(new StmtParam(Types.VARCHAR, "ZAZ"));//CARBRANDNAME
-
-            //StmtParamList paramList = new StmtParamList();
-            //paramList.add(new StmtParam(Types.BIGINT, calc));
-
-
             DBConnection conn = new DBConnection();
-            //conn.prepareStatementExecute(sql, paramList);
             conn.prepareStatementExecuteUpdate(sql, paramList);
 
             Logger.getLogger("").log(Level.SEVERE, "Мы добавили", "1111");
@@ -66,38 +231,50 @@ public class WsCalcLogDao {
             Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
 
             for (Field field : clazz.getDeclaredFields()) {
+
+                if (name.equalsIgnoreCase("OWNER_REGION")) {
+                    Logger.getLogger("").log(Level.SEVERE, "НАШЛИ РЕГИОЕН!!!! Мы перебираем поля + " + field.getName(), "!!!");
+                }
+
                 if (name != null && (field.getName()) != null) {
 
-                    if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
-
+                    //if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
+                    if (field.getName().equalsIgnoreCase(name)) {
+                        field.setAccessible(true);
                         // Теперь, когда мы нашли поле, нам надо попробовать вытащить его тип.
-
-                        if (field.getType().isAssignableFrom(Long.class)) {
+                     //   Logger.getLogger("").log(Level.SEVERE, "Мы проверили, поле есть. То есть [" + field.getName() + "] и [" + name + "] - это одно и тоже", "!!!");
+                        //if (field.getType().isAssignableFrom(Long.class)) {
+                        //  if (field.getType().isInstance(Long.class)) {
+                        if (field.get(anyClass) instanceof Long) {
                             try {
                                 field.setAccessible(true);
                                 var = (Long) field.get(anyClass);
-                                //String catchedValue = "Мы поймали - " + String.valueOf(var);
-                                //         Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                        //        String catchedValue = "Поле Лонг. Мы поймали - " + String.valueOf(var);
+                      //         Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                //   break;
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
                         } else if (field.getType().isAssignableFrom(int.class)) {
                             try {
-                                //            Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
+                                Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
                                 field.setAccessible(true);
                                 var = (Integer) field.get(anyClass);
                                 //String catchedValue = "Мы поймали - " + String.valueOf(var);
                                 //                   Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                //     break;
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
-                        } else if (field.getType().isAssignableFrom(String.class)) {
+                            //} else if (field.getType().isAssignableFrom(String.class)) {
+                        } else if (field.get(anyClass) instanceof String) {
                             try {
 
                                 field.setAccessible(true);
                                 var = (String) field.get(anyClass);
-                                String catchedValue = "Мы поймали String - " + String.valueOf(var);
-                                //                    Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                String catchedValue = "Мы поймали String. Поле - " + field.getName() + ". Значение - " + String.valueOf(var);
+                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                //   break;
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
@@ -106,8 +283,8 @@ public class WsCalcLogDao {
 
                                 field.setAccessible(true);
                                 var = (Double) field.get(anyClass);
-                                String catchedValue = "Мы поймали Double - " + String.valueOf(var);
-                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                //        String catchedValue = "Мы поймали Double - " + String.valueOf(var);
+                                //          Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
@@ -116,8 +293,8 @@ public class WsCalcLogDao {
 
                                 field.setAccessible(true);
                                 var = (java.sql.Date) field.get(anyClass);
-                                String catchedValue = "Мы поймали SQL DATE - " + String.valueOf(var);
-                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                //        String catchedValue = "Мы поймали SQL DATE - " + String.valueOf(var);
+                                //        Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
@@ -126,8 +303,8 @@ public class WsCalcLogDao {
 
                                 field.setAccessible(true);
                                 var = (Integer) field.get(anyClass);
-                                String catchedValue = "Мы поймали Integer - " + String.valueOf(var);
-                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                                //         String catchedValue = "Мы поймали Integer - " + String.valueOf(var);
+                                //         Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
@@ -162,20 +339,52 @@ public class WsCalcLogDao {
             Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
             for (Field field : clazz.getDeclaredFields()) {
                 if (name != null && (field.getName()) != null) {
-                    //Logger.getLogger("").log(Level.SEVERE, "Имя искомого поля и имя поля, вытаскиваемого из класса не ноль", "!!!");
-                    if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
-                        //      Logger.getLogger("").log(Level.SEVERE, "Нашли поле в классе (определяем тип)", "!!!");
+
+                    String s = "Мы ищем - " + name;
+                       Logger.getLogger("").log(Level.SEVERE, s, "!!!");
+
+                    //if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
+                        if (field.getName().equalsIgnoreCase(name)) {
+                        //Logger.getLogger("").log(Level.SEVERE, "Нашли поле в классе (определяем тип)", "!!!");
                         if (field.getType().isAssignableFrom(Long.class)) {
-                            //                Logger.getLogger("").log(Level.SEVERE, "Поле являеется Лонг (мы сейчас определяем тип (а не значение))", "!!!");
-                            varType = Types.NUMERIC;
+                                     Logger.getLogger("").log(Level.SEVERE, "Поле являеется Лонг (мы сейчас определяем тип (а не значение))", "!!!");
+                            varType = Types.BIGINT;
+                            break;
+                        } else if (field.getType().isAssignableFrom(long.class)) {
+                            varType = Types.BIGINT;
+                            Logger.getLogger("").log(Level.SEVERE, "Поле - маленький Лонг", "!!!");
+                            break;
                         } else if (field.getType().isAssignableFrom(int.class)) {
                             varType = Types.INTEGER;
-                            //                   Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
+                          //         Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
+                            break;
                         } else if (field.getType().isAssignableFrom(String.class)) {
                             varType = Types.VARCHAR;
-                            //                 Logger.getLogger("").log(Level.SEVERE, "Пиздец какой-то - поле-то у нас СТРИНГ", "!!!");
+                      //              Logger.getLogger("").log(Level.SEVERE, "Пиздец какой-то - поле-то у нас СТРИНГ", "!!!");
+                            break;
+                        } else if (field.getType().isAssignableFrom(Integer.class)) {
+                            varType = Types.INTEGER;
+                                   Logger.getLogger("").log(Level.SEVERE, "А мы нашли Integer", "!!!");
+                            break;
+
+                        } else if (field.getType().isAssignableFrom(Double.class)) {
+                            varType = Types.DOUBLE;
+                            //       Logger.getLogger("").log(Level.SEVERE, "А мы нашли Double", "!!!");
+                            break;
+
+                        } else if (field.getType().isAssignableFrom(double.class)) {
+                            varType = Types.DOUBLE;
+                            //     Logger.getLogger("").log(Level.SEVERE, "А мы нашли Double", "!!!");
+                            break;
+
+                        } else if (field.getType().isAssignableFrom(java.sql.Date.class)) {
+                            varType = Types.DATE;
+                                  Logger.getLogger("").log(Level.SEVERE, "А мы нашли SQL дату", "!!!");
+                            break;
                         } else {
+                            //varType = Types.DATE;
                             varType = Types.TIMESTAMP;
+                            Logger.getLogger("").log(Level.SEVERE, "Поставили TIMESTAMP", "!!!");
                         }
                     }
                 }
@@ -227,47 +436,6 @@ public class WsCalcLogDao {
         StringBuffer strBuffer = new StringBuffer();
         FileLog fileLog = new FileLog();
 
-  /*      try {
-            //Foobar foobar = new Foobar("Peter");
-
-            Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
-
-            strBuffer.append("Class: ");
-            strBuffer.append(clazz);
-            strBuffer.append("  |  ");
-
-            Field field = clazz.getDeclaredField("carbrandname");
-            field.setAccessible(true);
-            String value = (String) field.get(wsCalcLogsNew);
-
-            strBuffer.append("carbrandname: ");
-            strBuffer.append(value);
-            strBuffer.append("  |  ");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        //   Object temp = new Object();
-        //   Class ws = WsCalcLogsNew.class;
-        //  WsCalcLogsNew instance = new WsCalcLogsNew();
-        //String instance = null;
-
-          /*  if (field.getType().isInstance(String.class)){
-                try {
-                    temp = field.get(instance);
-                    String value = (String) field.get(instance);
-
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-
-            System.out.println(temp);
-            strBuffer.append("| Value: " + temp);
-        }*/
-        //  }
-
         try {
 
             String sql = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
@@ -309,8 +477,6 @@ public class WsCalcLogDao {
                                      * А в классах есть и long, и double, и integer.
                                      */
                                     typeForParamList = getLocalFieldType(wsCalcLogsNew, rsmd.getColumnName(i));
-                                    //typeForParamList = Types.NUMERIC;
-
 
                                     // Ищем поле с таким именем в классе
                                     paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wsCalcLogsNew, rsmd.getColumnName(i))));
@@ -334,9 +500,7 @@ public class WsCalcLogDao {
                                     break;
                             }
                         }
-                        //paramList.add(new StmtParam(Types.NUMERIC, rsmd.getColumnName(i)));
 
-                        //   }
 
                         try {
                             fileLog.saveAllReportPanels3(myParamList);
@@ -344,11 +508,6 @@ public class WsCalcLogDao {
                             e.printStackTrace();
                         }
 
-                        for (StmtParam field : paramList) {
-
-                            //     Logger.getLogger("").log(Level.SEVERE, String.valueOf(field.getValue()), "Мы нашли поле");
-                            // fileLog.addLogEntry(field.getType() + " - " + field.toString() + " - " + String.valueOf(field.getValue()));
-                        }
 
                         strBuffer.append("[");
                         strBuffer.append(rsmd.getColumnName(i));
@@ -480,7 +639,6 @@ public class WsCalcLogDao {
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getEquipment()));//EQUIPMENT
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getOsago()));//OSAGO
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getDgo()));//DGO
-        paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getCrash()));//CRASH
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getPnumber()));//PNUMBER
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getCommercprogrammid()));//COMMERCPROGRAMMID
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getCarDamageQuanityManual()));//CARDAMAGEQUANITYMANUAL
@@ -496,7 +654,7 @@ public class WsCalcLogDao {
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getPolicy()));//POLICY
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getCarYear()));//CarYear
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getAdmUser()));//ADMUSER
-
+        paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getCrash()));//CRASH
         //paramList.add(new StmtParam(Types.NUMERIC, wsCalcLogsNew.getHolderRequestId()));//HOLDERREQUESTID
         paramList.add(new StmtParam(Types.BIGINT, wsCalcLogsNew.getHolderRequestId()));//HOLDERREQUESTID
         //paramList.add(new StmtParam(Types.NUMERIC, wsCalcLogsNew.getOwnerRequestId()));//OWNERREQUESTID
@@ -638,34 +796,34 @@ public class WsCalcLogDao {
                 mockObject.setCarbodynumber(generateString());
                 mockObject.setCarchassisnumber(generateString());
                 mockObject.setCreditauto("Н");
-                mockObject.setLenderid(new Long(getRNIR(1,10)));
+                mockObject.setLenderid(new Long(getRNIR(1, 10)));
                 mockObject.setAutorace("Д");
-                mockObject.setCarkind(getRNIR(1,10));
+                mockObject.setCarkind(getRNIR(1, 10));
                 mockObject.setCarvendortype(0);
-                mockObject.setCarprice(new Double(getRNIR(1,10)));
+                mockObject.setCarprice(new Double(getRNIR(1, 10)));
                 mockObject.setRightwheel("Н");
-                mockObject.setAntitheftsystem(new Long(getRNIR(1,100)));
+                mockObject.setAntitheftsystem(new Long(getRNIR(1, 100)));
                 mockObject.setThfmechdevice("Н");
                 mockObject.setCarpurchasedate(sqlDate);
-                mockObject.setCarparkcount(new Long(getRNIR(1,10)));
-                mockObject.setPowerauto(new Long(getRNIR(1,10)));
+                mockObject.setCarparkcount(new Long(getRNIR(1, 10)));
+                mockObject.setPowerauto(new Long(getRNIR(1, 10)));
                 mockObject.setCarusedtrailer("Н");
-                mockObject.setCaraccidentplaceinssum(new Double(getRNIR(1,10)));
-                mockObject.setCaraccidentplacekind(new Long(getRNIR(1,10)));
-                mockObject.setCaraccidentplacenum(new Long(getRNIR(1,10)));
-                mockObject.setCarextequipmentinssum(new Double(getRNIR(1,10)));
+                mockObject.setCaraccidentplaceinssum(new Double(getRNIR(1, 10)));
+                mockObject.setCaraccidentplacekind(new Long(getRNIR(1, 10)));
+                mockObject.setCaraccidentplacenum(new Long(getRNIR(1, 10)));
+                mockObject.setCarextequipmentinssum(new Double(getRNIR(1, 10)));
                 mockObject.setInsfromdate1(sqlDate);
                 mockObject.setInstodate1(sqlDate);
                 mockObject.setInsfromdate2(sqlDate);
                 mockObject.setInsfromdate3(sqlDate);
                 mockObject.setInstodate2(sqlDate);
                 mockObject.setInstodate3(sqlDate);
-                mockObject.setCaruseregion(new Long(getRNIR(1,10)));
+                mockObject.setCaruseregion(new Long(getRNIR(1, 10)));
                 mockObject.setCaruseregionkladr(generateString());
-                mockObject.setCarcategory(getRNIR(1,10));
-                mockObject.setPerioduse(new Long(getRNIR(1,25)));
+                mockObject.setCarcategory(getRNIR(1, 10));
+                mockObject.setPerioduse(new Long(getRNIR(1, 25)));
                 mockObject.setCarvehicletypeosago(generateString());
-                mockObject.setInssumdgo(new Double(getRNIR(1,10)));
+                mockObject.setInssumdgo(new Double(getRNIR(1, 10)));
                 mockObject.setWithweardgo("Х");
                 mockObject.setKbmcheckcardiagnisticcard("У");
                 mockObject.setCasco("Ю");
@@ -679,26 +837,26 @@ public class WsCalcLogDao {
                 mockObject.setDgo("С");
                 mockObject.setCrash("Е");
                 mockObject.setPnumber("М");
-                mockObject.setCommercprogrammid(getRNIR(1,5));
+                mockObject.setCommercprogrammid(getRNIR(1, 5));
 
           /*      mockObject.setCarownertypeid(getRNIR(1,150));
                 mockObject.setInsuranttypeid(-1); */
 
                 mockObject.setIsanothersk("Я");
-                mockObject.setInsurer(new Long(getRNIR(1,18)));
-              mockObject.setOwnerregion(new Long(getRNIR(1,250)));
+                mockObject.setInsurer(new Long(getRNIR(1, 18)));
+                mockObject.setOwnerregion(new Long(getRNIR(1, 250)));
                 mockObject.setDriverlisttype("A");
-                mockObject.setCarmodelcode(new Long(getRNIR(1,25)));
+                mockObject.setCarmodelcode(new Long(getRNIR(1, 25)));
                 mockObject.setDriverlisttypeosago(generateString());
-                mockObject.setPolicy(getRNIR(1,15));
+                mockObject.setPolicy(getRNIR(1, 15));
                 mockObject.setCarYear(getRNIR(1941, 2018));
                 mockObject.setAdmUser("ВАСЯ");
-                mockObject.setHolderRequestId(new Long(getRNIR(1,25)));
-                mockObject.setOwnerRequestId(new Long(getRNIR(1,25)));
-                mockObject.setEquifaxScore(getRNIR(1,15));
+                mockObject.setHolderRequestId(new Long(getRNIR(1, 25)));
+                mockObject.setOwnerRequestId(new Long(getRNIR(1, 25)));
+                mockObject.setEquifaxScore(getRNIR(1, 15));
                 mockObject.setEquifaxerrmsg("ERROR!");
                 mockObject.setPolicyType(1);
-                mockObject.setCustomKb(getRNIR(1,5));
+                mockObject.setCustomKb(getRNIR(1, 5));
                 break;
         }
         return mockObject;

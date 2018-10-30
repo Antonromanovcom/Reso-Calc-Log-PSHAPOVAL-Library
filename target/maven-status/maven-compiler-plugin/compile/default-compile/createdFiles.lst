@@ -15,6 +15,7 @@ ru\reso\resocalc\Service\WsCalcLogDao.class
 ru\reso\resocalc\Entity\WsDriver.class
 ru\reso\resocalc\Entity\MyStmtParam.class
 ru\reso\resocalc\Service\FileLog.class
+ru\reso\resocalc\Utils\aORM.class
 ru\reso\resocalc\Utils\WsLogDictonary$PartnerType.class
 ru\reso\resocalc\Entity\WsPartnerPK.class
 ru\reso\resocalc\Utils\sqlLogging.class
