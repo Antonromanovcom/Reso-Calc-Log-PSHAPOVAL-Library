@@ -30,6 +30,7 @@ ru\reso\resocalc\Utils\WsLogDictonary$CalcPremium.class
 ru\reso\resocalc\Entity\DriverUnit.class
 ru\reso\resocalc\Service\Factories\MainFactory.class
 ru\reso\resocalc\Utils\WsLogDictonary.class
+ru\reso\resocalc\Utils\Factories\ConcreteFactories\WsCalcLogFactory.class
 ru\reso\resocalc\Entity\WsCoeff.class
 ru\reso\resocalc\Utils\Factories\ConcreteFactories\PartnerFactory.class
 ru\reso\resocalc\Entity\MyStmtParam.class

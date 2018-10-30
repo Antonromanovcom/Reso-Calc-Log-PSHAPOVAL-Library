@@ -9,7 +9,6 @@ public class VarientType {
     private Boolean found;
 
 
-
     public Integer getBIGINTVALUE() {
         return BIGINTVALUE;
     }

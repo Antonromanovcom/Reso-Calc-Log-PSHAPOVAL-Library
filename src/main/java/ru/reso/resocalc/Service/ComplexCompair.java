@@ -7,6 +7,8 @@ import ru.reso.resocalc.Entity.WsCalcLogsNew;
 import ru.reso.resocalc.Entity.WsCoeff;
 import ru.reso.resocalc.Service.Factories.ConcreteFactories.WsCoeffCalcFactory;
 import ru.reso.resocalc.Utils.Factories.ConcreteFactories.BonusFactory;
+import ru.reso.resocalc.Utils.Factories.ConcreteFactories.CommonLogsFactory;
+import ru.reso.resocalc.Utils.Factories.ConcreteFactories.WsCalcLogFactory;
 
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
@@ -21,7 +23,9 @@ public class ComplexCompair {
     private static WsCalcLogsNew calcLog1st = new WsCalcLogsNew();
     private static WsCalcLogsNew calcLog2d = new WsCalcLogsNew();
 
+
     // ----------- КОЭФИЦИЕНТЫ (НО В БУДУЩЕМ ФАБРИЧНОЕ ПОЛУЧЕНИЕ ДАННЫХ ДЛЯ ВСЕГО ОСТАЛЬНОГО)  --------------------------------
+
     private static WsCoeff coeffCalc1st = new WsCoeff();
     private static WsCoeff coeffCalc2d = new WsCoeff();
 
@@ -222,6 +226,25 @@ public class ComplexCompair {
         return result;
     }
 
+    public static String getDescription4WsCoeffCalc(String columnName) {
+        String result;
+
+        WsCalcLogFactory wsCalcLogFactory = new WsCalcLogFactory();
+        result = wsCalcLogFactory.getDescription4Column(columnName);
+
+
+        return result;
+    }
+
+    public static String getDescription4WsCommonLogs(String columnName) {
+        String result;
+
+        CommonLogsFactory commonLogsFactory = new CommonLogsFactory();
+        result = commonLogsFactory.getDescription4Column(columnName);
+
+        return result;
+    }
+
     public static LinkedHashMap<String, ComparedParam> getFullCompareNew(CalcEntity calcEntity1st, CalcEntity calcEntity2d) {
 
         LinkedHashMap<String, ComparedParam> result = new LinkedHashMap<>();
@@ -262,6 +285,5 @@ public class ComplexCompair {
 
         return result;
     }
-
 
 }

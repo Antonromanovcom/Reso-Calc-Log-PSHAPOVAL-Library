@@ -7,8 +7,6 @@ public class ComparedParam {
     private String val2;
     private Boolean compare;
 
-
-
     public ComparedParam(String name, String s, String s1) {
         this.key = name;
         this.val1 = s;
