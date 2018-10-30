@@ -7,6 +7,8 @@ package ru.reso.resocalc.Entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -84,6 +86,8 @@ public class WsCalcLogsNew implements Serializable {
     private String equifaxerrmsg; //Ошибка EquiFax
     private int policyType;     //Тип полиса (0 - первоначальный, 1 - пролонгация)
     private int customKb;     //Дельта КВ,  указанная пользователем
+    //private HashMap<String, String> hash = new HashMap<>();     //Стринговый хэш всего объекта для сравнения
+    private LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
 
 
     public WsCalcLogsNew() {
@@ -695,4 +699,17 @@ public class WsCalcLogsNew implements Serializable {
     public void setCustomKb(int customKb) {
         this.customKb = customKb;
     }
+
+    public HashMap<String, String> getHash() {
+        return hash;
+    }
+
+    public void addToHash(String key, String value) {
+        this.hash.put(key, value);
+    }
+
+
+
+
+
 }

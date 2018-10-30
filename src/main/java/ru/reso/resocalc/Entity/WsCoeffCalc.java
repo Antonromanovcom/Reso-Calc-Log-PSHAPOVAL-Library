@@ -15,10 +15,16 @@ public class WsCoeffCalc implements Serializable {
     /**Ид коэффициента    */
     private int coefid;
     /**Значение коэффициента*/
-    private double value; 
+    private double value;
+
+    private String test;
 
     public WsCoeffCalc(long calcid) {
         this.calcid = calcid;
+    }
+
+    public WsCoeffCalc() {
+
     }
 
     public long getCalcid() {
@@ -44,10 +50,7 @@ public class WsCoeffCalc implements Serializable {
     public void setValue(double value) {
         this.value = value;
     }
-    
-    public void WsCoeffCalc() {
-        
-    }
+
     /**
      * Конструктор 
      * @param calcid идентификатор расчета
@@ -58,5 +61,14 @@ public class WsCoeffCalc implements Serializable {
         this.calcid = calcid;
         this.coefid = coeff.getIndex();
         this.value = value;
+    }
+
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
     }
 }

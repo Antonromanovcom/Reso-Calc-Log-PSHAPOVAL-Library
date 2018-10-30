@@ -406,6 +406,89 @@ public interface sqlLogging {
             + " where "
             + "CALCID = ? ";
 
+    final String SQL_UPDATE_WsCalcLogNEW2
+            = "update webauto.WS_CALC_LOGS_NEW "
+            + " set "
+            + "( CALCID, "
+            + " NOTAPPLYSPECPROGDISCOUNT, "
+            + " TARGETCOMPANY, "
+            + " CARBRANDNAME, "
+            + " CARMODELNAME, "
+            + " CARTYPE, "
+            + " CARBODYNUMBER, "
+            + " CARCHASSISNUMBER, "
+            + " CREDITAUTO, "
+            + " LENDERID, "
+            + " AUTORACE, "
+            + " CARKIND, "
+            + " CARVENDORTYPE, "
+            + " CARPRICE, "
+            + " RIGHTWHEEL, "
+            + " ANTITHEFTSYSTEM, "
+            + " THFMECHDEVICE, "
+            + " CARPURCHASEDATE, "
+            + " CARPARKCOUNT, "
+            + " POWERAUTO, "
+            + " CARUSEDTRAILER, "
+            + " CARACCIDENTPLACEINSSUM, "
+            + " CARACCIDENTPLACEKIND, "
+            + " CARACCIDENTPLACENUM, "
+            + " CAREXTEQUIPMENTINSSUM, "
+            + " INSFROMDATE1, "
+            + " INSTODATE1, "
+            + " INSFROMDATE2, "
+            + " INSTODATE2, "
+            + " INSFROMDATE3, "
+            + " INSTODATE3, "
+            + " CARUSEREGION, "
+            + " CARUSEREGIONKLADR,"
+            + " CARCATEGORY, "
+            + " PERIODUSE, "
+            + " CARVEHICLETYPEOSAGO, "
+            + " INSSUMDGO, "
+            + " WITHWEARDGO, "
+            + " KBMCHECKCARDIAGNISTICCARD, "
+            + " CASCO, "
+            + " DAMAGE, "
+            + " THEFT, "
+            + " HELP, "
+            + " GAP, "
+            + " ACCIDENT, "
+            + " EQUIPMENT, "
+            + " OSAGO, "
+            + " DGO, "
+            + " PNUMBER, "
+            + " COMMERCPROGRAMMID, "
+            + " CAROWNERTYPEID, "
+            + " INSURANTTYPEID, "
+            + " CARDAMAGEQUANITYMANUAL, "
+            + " ISANOTHERSK, "
+            + " INSURER, "
+            + " OWNER_REGION, "
+            + " DRIVERLISTTYPE, "
+            + " CARMODELCODE, "
+            + " POLICY,"
+            + " DRIVERLISTTYPEOSAGO, "
+            + " CARYEAR, "
+            + " ADMUSER, "
+            + " CRASH,"
+            + " HOLDERREQUESTID, "
+            + " OWNERREQUESTID, "
+            + " EQUIFAXSCORE, "
+            + " EQUIFAXERRMSG, "
+            + " POLICYTYPE, "
+            + " CUSTOMKB)"
+            + " where "
+            + "CALCID = ? ";
+
+
+    final String SQL_UPDATE_WsCalcLogNEW3
+            = "update webauto.WS_CALC_LOGS_NEW "
+            + " set "
+            + " NOTAPPLYSPECPROGDISCOUNT = ? "
+            + " where "
+            + "CALCID = 122867777";
+
     final String SQL_INSERT_WS_DRIVERS
             = " insert into webauto.WS_DRIVERS "
             + " ( FIO,"
@@ -483,6 +566,15 @@ public interface sqlLogging {
     
     
     final String SQL_GET_CALC_COEFF_BY_ID
+            = "select * from WS_COEFF_CALC t "
+            + " where t.calcid = ?";
+
+
+    final String SQL_GET_CALC_COEFF_COUNT_BY_ID
+            = "select count(*) as COUNT from WS_COEFF_CALC t where t.calcid = ?";
+
+
+    final String SQL_GET_CALC_COEFF_BY_ID_OLD
             = "select t.value as value from WS_COEFF_CALC t "
             + " where t.calcid = ? "
             + " and t.coefid = ? ";
@@ -497,4 +589,31 @@ public interface sqlLogging {
 
     final String SQL_TEST_CALC_ID
             = "select * from (select * from WS_CALC_LOGS_NEW t order by t.calcid)  where ROWNUM < 11";
+
+    final String SQL_GET_COEFF_DESC_BY_ID
+            = " select t.DECCRIPTION AS DESCR  from webauto.WS_DCT_COEFFICIENTS t where t.ID = ?";
+
+
+    final String SQL_GET_BONUSES_BY_ID
+            = "select * from webauto.WS_PREMIUM t where t.calcid = ?";
+
+
+    final String SQL_GET_BONUSES_COUNT_BY_ID
+            = "select count(*) as COUNT from webauto.WS_PREMIUM t where t.calcid = ?";
+
+
+    final String SQL_GET_NON_MATCHING_PREMIUMS
+            = "select * from webauto.WS_PREMIUM t WHERE t.CALCID=? AND t.PREMIUMTYPE != ANY (select d.PREMIUMTYPE from webauto.WS_PREMIUM d WHERE CALCID = ?)";
+
+    final String SQL_GET_DRIVERS
+            = "select * from webauto.WS_DRIVERS  WHERE CALCID=?";
+
+    final String SQL_GET_PARTNERS
+            = "select * from webauto.WS_PARTNER WHERE CALCID=?";
+
+    final String SQL_GET_COMMON_LOGS = "select * from webauto.WS_COMMON_LOGS WHERE CALCID=?";
+
+
+
+
 }

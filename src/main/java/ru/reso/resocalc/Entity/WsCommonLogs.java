@@ -7,30 +7,26 @@ package ru.reso.resocalc.Entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
  * @author SHAPPN
  */
-public class WsCommonLogs implements Serializable {
+public class WsCommonLogs implements Serializable, CalcEntity {
     private static final long serialVersionUID = 1L;
     private int input_mode = 3;
-   
     private long calcid;
     private Long agentid;
     private Long agencyid;
- 
     private String requestmessage;
-  
     private Date pdate;
-   
     private Date fromdate;
-   
     private Date todate;
     private long payperiod;
     private String purchaseregion;
     private long insuranceregion;
- 
     private int damageprogrammstoa;
     private String officialstoa;
     private String carregnumber;
@@ -59,6 +55,7 @@ public class WsCommonLogs implements Serializable {
     private long policyHeader;
     private int policyState;
     private int parentState;
+    private LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
     
 
     public WsCommonLogs() {
@@ -92,7 +89,6 @@ public class WsCommonLogs implements Serializable {
         this.SessionID = "";
         this.Error = "";
     }
-   
 
     public long getCalcid() {
         return calcid;
@@ -345,8 +341,7 @@ public class WsCommonLogs implements Serializable {
     public void setInput_mode(int input_mode) {
         this.input_mode = input_mode;
     }
-    
-    
+
   
     @Override
     public int hashCode() {
@@ -438,7 +433,25 @@ public class WsCommonLogs implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
-  
+
+
+    @Override
+    public String getTest() {
+        return null;
+    }
+
+    @Override
+    public void addToHash(String key, String value) {
+        this.hash.put(key, value);
+    }
+
+
+    public void addToHashAll(LinkedHashMap<String, String> map) {
+        this.hash.putAll(map);
+    }
+
+    @Override
+    public Map<String, String> getHash() {
+        return hash;
+    }
 }
