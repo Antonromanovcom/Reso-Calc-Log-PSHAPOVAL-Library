@@ -1,0 +1,17 @@
+ru\reso\resocalc\Entity\WsPremium.class
+ru\reso\resocalc\Entity\WsCoeffCalc.class
+ru\reso\resocalc\Entity\WsCommonLogs.class
+ru\reso\resocalc\Service\DBConnection.class
+ru\reso\resocalc\Service\Utils.class
+ru\reso\resocalc\Entity\WsCalcLogsNew.class
+ru\reso\resocalc\Entity\WsPartner.class
+ru\reso\resocalc\Utils\WsLogDictonary$CalcPremium.class
+ru\reso\resocalc\Utils\WsLogDictonary.class
+ru\reso\resocalc\Utils\WsLogDictonary$CalcCoeff.class
+ru\reso\resocalc\Service\WsCalcLogDao.class
+ru\reso\resocalc\Entity\WsDriver.class
+ru\reso\resocalc\Service\FileLog.class
+ru\reso\resocalc\Utils\WsLogDictonary$PartnerType.class
+ru\reso\resocalc\Entity\WsPartnerPK.class
+ru\reso\resocalc\Utils\sqlLogging.class
+ru\reso\resocalc\Utils\WsLogDictonary$CalcRequest.class
