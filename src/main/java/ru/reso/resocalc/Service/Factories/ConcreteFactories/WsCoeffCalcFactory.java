@@ -150,10 +150,10 @@ public class WsCoeffCalcFactory extends EntityFactory {
             String key = name;
             String value = coeffList.getHash().get(name);
             //System.out.println(key + " -  " + value);
-            Logger.getLogger("").log(Level.SEVERE, key + " -  " + value, "Инфо");
+       //     Logger.getLogger("").log(Level.SEVERE, key + " -  " + value, "Инфо");
         }
 
-        Logger.getLogger("").log(Level.SEVERE, "А теперь распечатаем получившийся Лист", "Инфо");
+   //     Logger.getLogger("").log(Level.SEVERE, "А теперь распечатаем получившийся Лист", "Инфо");
 
         for (WsCoeffCalc temp : coeffList.getCoeffCalcList()) {
          //   System.out.println(temp);

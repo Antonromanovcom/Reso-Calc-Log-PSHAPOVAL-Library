@@ -55,12 +55,12 @@ public class CommonLogsFactory implements EntitiesUtils {
             }
         }
 
-        Logger.getLogger("").log(Level.SEVERE, "ПЕЧАТАЕМ КОММОНН ЛОГ", "КПАЛУМТОМПЛ");
+     //   Logger.getLogger("").log(Level.SEVERE, "ПЕЧАТАЕМ КОММОНН ЛОГ", "КПАЛУМТОМПЛ");
         for (String name : wsCommonLogs.getHash().keySet()) {
 
             String key = name;
             String value = wsCommonLogs.getHash().get(name);
-            Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
+       //     Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
         }
         return wsCommonLogs;
     }

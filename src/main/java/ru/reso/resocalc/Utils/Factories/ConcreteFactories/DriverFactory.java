@@ -9,11 +9,20 @@ import ru.reso.resocalc.Utils.Factories.EntitiesUtils;
 import ru.reso.resocalc.Utils.sqlLogging;
 
 import javax.sql.rowset.WebRowSet;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 import static ru.reso.resocalc.Utils.DAOUtils.dateToString;
+import static ru.reso.resocalc.Utils.DAOUtils.getJSONfromMap;
 import static ru.reso.resocalc.Utils.DAOUtils.parseWebRowSet;
 
 public class DriverFactory implements EntitiesUtils {
@@ -69,16 +78,8 @@ public class DriverFactory implements EntitiesUtils {
 
             String key = name;
             String value = drivers.getHash().get(name);
-            Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
+            //       Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
         }
-/*
-        Logger.getLogger("").log(Level.SEVERE, "А теперь распечатаем получившийся Лист", "Инфо");
-
-        for (WsBonusUnit temp : drivers.getBonusList()) {
-            Logger.getLogger("").log(Level.SEVERE, temp.getCalcid() + " -  " + temp.getDeductible_sum() + " - " + temp.getPremiumtype() + " - " + temp.getPremium_sum(), "Инфо");
-        }
-
-*/
         return drivers;
     }
 
@@ -95,7 +96,7 @@ public class DriverFactory implements EntitiesUtils {
 
     private String rowsToString(WebRowSet rs) throws SQLException {
 
-        String result = String.valueOf(rs.getInt("KBMCLASSDRIVEROSAGO"))
+       /* String result = String.valueOf(rs.getInt("KBMCLASSDRIVEROSAGO"))
                 + "-" + String.valueOf(rs.getInt("KVS"))
                 + "-" + String.valueOf(rs.getInt("KVSOSAGO"))
                 + "-" + String.valueOf(rs.getInt("STAGE"))
@@ -106,6 +107,25 @@ public class DriverFactory implements EntitiesUtils {
                 + "-" + String.valueOf(rs.getInt("KBMCOEFFDRIVERCASCO"))
                 + "-" + String.valueOf(rs.getInt("RELATE_TO_RISK"))
                 + "-" + String.valueOf(rs.getInt("KBMIDREQUESTRSADRIVEROSAGO"));
+*/
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("KBMCLASSDRIVEROSAGO", String.valueOf(rs.getInt("KBMCLASSDRIVEROSAGO")));
+        map.put("KVS", String.valueOf(rs.getInt("KVS")));
+        map.put("KVSOSAGO", String.valueOf(rs.getInt("KVSOSAGO")));
+        map.put("STAGE", String.valueOf(rs.getInt("STAGE")));
+        map.put("LICENCEDATE", String.valueOf(rs.getInt("LICENCEDATE")));
+        map.put("LICENCESERIA", String.valueOf(rs.getInt("LICENCESERIA")));
+        map.put("LICENCENUMBER", String.valueOf(rs.getInt("LICENCENUMBER")));
+        map.put("KBMCOEFFDRIVEROSAGO", String.valueOf(rs.getInt("KBMCOEFFDRIVEROSAGO")));
+        map.put("KBMCOEFFDRIVERCASCO", String.valueOf(rs.getInt("KBMCOEFFDRIVERCASCO")));
+        map.put("RELATE_TO_RISK", String.valueOf(rs.getInt("RELATE_TO_RISK")));
+        map.put("KBMIDREQUESTRSADRIVEROSAGO", String.valueOf(rs.getInt("KBMIDREQUESTRSADRIVEROSAGO")));
+
+
+        String result = getJSONfromMap(map);
+
 
         return result;
     }

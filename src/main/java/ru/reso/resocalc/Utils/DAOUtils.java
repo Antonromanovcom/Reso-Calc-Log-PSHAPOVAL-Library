@@ -1,6 +1,9 @@
 package ru.reso.resocalc.Utils;
 
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import ru.reso.resocalc.Entity.CalcEntity;
 import ru.reso.resocalc.Entity.MyStmtParamList;
@@ -19,7 +22,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -475,5 +480,27 @@ public class DAOUtils {
         return dateToString;
     }
 
+    public static String getJSONfromMap(Map<String, Object> map) {
 
+        String json = "";
+
+    try {
+
+        ObjectMapper mapper = new ObjectMapper();
+        json = mapper.writeValueAsString(map);
+       // Logger.getLogger("").log(Level.SEVERE, "Без Претти-Принтера:   " + json, "аааа");
+        json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+       // Logger.getLogger("").log(Level.SEVERE, "С Претти-Принтером:   " + json, "аааа");
+
+
+    } catch (JsonGenerationException e) {
+        e.printStackTrace();
+    } catch (JsonMappingException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+        return json;
+    }
 }

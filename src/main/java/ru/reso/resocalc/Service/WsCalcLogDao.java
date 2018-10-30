@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import ru.reso.resocalc.Entity.MyStmtParam;
 import ru.reso.resocalc.Entity.MyStmtParamList;
 import ru.reso.resocalc.Entity.WsCalcLogsNew;
+import ru.reso.resocalc.Utils.DAOUtils;
 import ru.reso.resocalc.Utils.sqlLogging;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
@@ -782,7 +783,8 @@ public class WsCalcLogDao {
                 calcLog.setCarpurchasedate(rs.getDate("CARPURCHASEDATE"));
 
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                String dateToString = df.format(rs.getDate("CARPURCHASEDATE"));
+                //String dateToString = df.format(rs.getDate("CARPURCHASEDATE"));
+                String dateToString = DAOUtils.dateToString(rs.getDate("CARPURCHASEDATE"));
 
                 calcLog.addToHash("CARPURCHASEDATE", dateToString); //HASH
                 calcLog.setCarparkcount(rs.getLong("CARPARKCOUNT"));

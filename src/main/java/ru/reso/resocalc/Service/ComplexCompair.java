@@ -6,6 +6,7 @@ import ru.reso.resocalc.Entity.ComparedParam;
 import ru.reso.resocalc.Entity.WsCalcLogsNew;
 import ru.reso.resocalc.Entity.WsCoeff;
 import ru.reso.resocalc.Service.Factories.ConcreteFactories.WsCoeffCalcFactory;
+import ru.reso.resocalc.Utils.Factories.ConcreteFactories.BonusFactory;
 
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
@@ -82,24 +83,45 @@ public class ComplexCompair {
         calcLog2d = getLogByCalcID(calcIdSecond.longValue());
 
 
-        for (String name : calcLog1st.getHash().keySet()) {
+        if (calcLog2d == null) {
+            Logger.getLogger("").log(Level.SEVERE, "calcLog2d - ноль", "!!!!!!!!!!!");
+        }
 
-            if ((calcLog1st.getHash().get(name)) != null) {
-                if ((calcLog2d.getHash().get(name)) != null) {
+        if ((calcLog1st != null) && (calcLog2d != null)) {
 
-                    result.put(name, new ComparedParam(name, calcLog1st.getHash().get(name), calcLog2d.getHash().get(name)));
+            for (String name : calcLog1st.getHash().keySet()) {
+                if ((calcLog1st.getHash().get(name)) != null) {
+                    if ((calcLog2d.getHash().get(name)) != null) {
+                        if ((calcLog1st.getHash().get(name)).equals(calcLog2d.getHash().get(name))) {
+                            result.put(name, new ComparedParam(name, calcLog1st.getHash().get(name), calcLog2d.getHash().get(name), true));
+                        } else {
+                            result.put(name, new ComparedParam(name, calcLog1st.getHash().get(name), calcLog2d.getHash().get(name), false));
+                        }
+                    } else {
+                        result.put(name, new ComparedParam(name, calcLog1st.getHash().get(name), "", false));
+                    }
                 } else {
-                    result.put(name, new ComparedParam(name, calcLog1st.getHash().get(name), ""));
+                    if ((calcLog2d.getHash().get(name)) != null) {
+                        result.put(name, new ComparedParam(name, "", calcLog2d.getHash().get(name), false));
+                    } else {
+                        result.put(name, new ComparedParam(name, "", "", true));
+                    }
                 }
-            } else {
-                if ((calcLog2d.getHash().get(name)) != null) {
-                    result.put(name, new ComparedParam(name, "", calcLog2d.getHash().get(name)));
-                } else {
-                    result.put(name, new ComparedParam(name, "", ""));
-                }
+            }
+        } else if ((calcLog1st == null) && (calcLog2d == null)) {
+            result = null;
+        } else if ((calcLog1st != null) && (calcLog2d == null)) {
+            for (String name : calcLog1st.getHash().keySet()) {
+                result.put(name, new ComparedParam(name, calcLog1st.getHash().get(name), "", false));
+            }
 
+        } else if ((calcLog1st == null) && (calcLog2d != null)) {
+            for (String name : calcLog2d.getHash().keySet()) {
+                result.put(name, new ComparedParam(name, "", calcLog2d.getHash().get(name), false));
             }
         }
+
+
         return result;
     }
 
@@ -127,24 +149,31 @@ public class ComplexCompair {
         coeffCalc2d = wsCoeffCalcFactory.getEntityByCalcId(calcIdSecond.longValue());
 
 
-        Logger.getLogger("").log(Level.SEVERE, "ПРОВЕРИМ ЛОГ 1 - " + (coeffCalc1st.getCoeffCalcList().get(1).getTest()), "!!!!!!!!!!!");
-        Logger.getLogger("").log(Level.SEVERE, "ПРОВЕРИМ ЛОГ 2 - " + (coeffCalc2d.getTest()), "!!!!!!!!!!!");
+        //Logger.getLogger("").log(Level.SEVERE, "ПРОВЕРИМ ЛОГ 1 - " + (coeffCalc1st.getCoeffCalcList().get(1).getTest()), "!!!!!!!!!!!");
+        // Logger.getLogger("").log(Level.SEVERE, "ПРОВЕРИМ ЛОГ 2 - " + (coeffCalc2d.getTest()), "!!!!!!!!!!!");
 
         for (String name : coeffCalc1st.getHash().keySet()) {
 
             if ((coeffCalc1st.getHash().get(name)) != null) {
                 if ((coeffCalc2d.getHash().get(name)) != null) {
 
-                    Logger.getLogger("").log(Level.SEVERE, "КЛАДЕМ - " + (coeffCalc1st.getHash().get(name)) + " : " + (coeffCalc2d.getHash().get(name)), "!!!!!!!!!!!");
-                    result.put(name, new ComparedParam(name, (coeffCalc1st.getHash().get(name)), (coeffCalc2d.getHash().get(name))));
+                    //  Logger.getLogger("").log(Level.SEVERE, "КЛАДЕМ - " + (coeffCalc1st.getHash().get(name)) + " : " + (coeffCalc2d.getHash().get(name)), "!!!!!!!!!!!");
+
+                    if ((coeffCalc1st.getHash().get(name)).equals(coeffCalc2d.getHash().get(name))) {
+
+                        result.put(name, new ComparedParam(name, (coeffCalc1st.getHash().get(name)), (coeffCalc2d.getHash().get(name)), true));
+                    } else {
+                        result.put(name, new ComparedParam(name, (coeffCalc1st.getHash().get(name)), (coeffCalc2d.getHash().get(name)), false));
+                    }
+
                 } else {
-                    result.put(name, new ComparedParam(name, coeffCalc1st.getHash().get(name), ""));
+                    result.put(name, new ComparedParam(name, coeffCalc1st.getHash().get(name), "", false));
                 }
             } else {
                 if ((calcLog2d.getHash().get(name)) != null) {
-                    result.put(name, new ComparedParam(name, "", coeffCalc2d.getHash().get(name)));
+                    result.put(name, new ComparedParam(name, "", coeffCalc2d.getHash().get(name), false));
                 } else {
-                    result.put(name, new ComparedParam(name, "", ""));
+                    result.put(name, new ComparedParam(name, "", "", true));
                 }
 
             }
@@ -183,30 +212,56 @@ public class ComplexCompair {
         return result;
     }
 
+    public static String getDescriptionByPremiumID(int id) {
+        String result;
+
+        BonusFactory bonusFactory = new BonusFactory();
+        result = bonusFactory.getBonusDescription(id);
+
+
+        return result;
+    }
+
     public static LinkedHashMap<String, ComparedParam> getFullCompareNew(CalcEntity calcEntity1st, CalcEntity calcEntity2d) {
 
         LinkedHashMap<String, ComparedParam> result = new LinkedHashMap<>();
 
-        for (String name : calcEntity1st.getHash().keySet()) {
+        if ((calcEntity1st != null) && (calcEntity2d != null)) {
 
-            if ((calcEntity1st.getHash().get(name)) != null) {
-                if ((calcEntity2d.getHash().get(name)) != null) {
-
-                    result.put(name, new ComparedParam(name, (calcEntity1st.getHash().get(name)), (calcEntity2d.getHash().get(name))));
+            for (String name : calcEntity1st.getHash().keySet()) {
+                if ((calcEntity1st.getHash().get(name)) != null) {
+                    if ((calcEntity2d.getHash().get(name)) != null) {
+                        if ((calcEntity1st.getHash().get(name)).equals(calcEntity2d.getHash().get(name))) {
+                            result.put(name, new ComparedParam(name, (calcEntity1st.getHash().get(name)), (calcEntity2d.getHash().get(name)), true));
+                        } else {
+                            result.put(name, new ComparedParam(name, (calcEntity1st.getHash().get(name)), (calcEntity2d.getHash().get(name)), false));
+                        }
+                    } else {
+                        result.put(name, new ComparedParam(name, calcEntity1st.getHash().get(name), "", false));
+                    }
                 } else {
-                    result.put(name, new ComparedParam(name, calcEntity1st.getHash().get(name), ""));
-                }
-            } else {
-                if ((calcEntity2d.getHash().get(name)) != null) {
-                    result.put(name, new ComparedParam(name, "", calcEntity2d.getHash().get(name)));
-                } else {
-                    result.put(name, new ComparedParam(name, "", ""));
+                    if ((calcEntity2d.getHash().get(name)) != null) {
+                        result.put(name, new ComparedParam(name, "", calcEntity2d.getHash().get(name), false));
+                    } else {
+                        result.put(name, new ComparedParam(name, "", "", true));
+                    }
                 }
             }
+        } else if ((calcEntity1st == null) && (calcEntity2d == null)) {
+            result = null;
+        } else if ((calcEntity1st != null) && (calcEntity2d == null)) {
+            for (String name : calcEntity1st.getHash().keySet()) {
+                result.put(name, new ComparedParam(name, calcEntity1st.getHash().get(name), "", false));
+            }
+        } else if ((calcEntity1st == null) && (calcEntity2d != null)) {
+            for (String name : calcEntity2d.getHash().keySet()) {
+                result.put(name, new ComparedParam(name, "", calcEntity2d.getHash().get(name), false));
+            }
         }
+
+
         return result;
     }
-
 
 
 }

@@ -614,6 +614,10 @@ public interface sqlLogging {
     final String SQL_GET_COMMON_LOGS = "select * from webauto.WS_COMMON_LOGS WHERE CALCID=?";
 
 
+    final String SQL_GET_PREMIUM_DESC_BY_ID
+            = "select t.DESCRIPTION AS DESCR from webauto.WS_DCT_PREMIUM t WHERE t.ID = ?";
+
+
 
 
 }

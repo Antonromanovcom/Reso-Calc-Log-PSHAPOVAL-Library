@@ -47,7 +47,7 @@ public  class MainFactory {
 
                 for (String name : additionalEntity.getHash().keySet()) {
                     Logger.getLogger("").log(Level.SEVERE, "КЛАДЕМ ДОПЫ - " + name + " - " + (additionalEntity.getHash().get(name)), "!!!!!!!!!!!");
-                    result.put(name, new ComparedParam(name, (""), (additionalEntity.getHash().get(name))));
+                    result.put(name, new ComparedParam(name, (""), (additionalEntity.getHash().get(name)), false));
                 }
             }
         }

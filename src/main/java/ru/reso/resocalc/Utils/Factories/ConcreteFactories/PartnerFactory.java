@@ -7,10 +7,13 @@ package ru.reso.resocalc.Utils.Factories.ConcreteFactories;
 
         import javax.sql.rowset.WebRowSet;
         import java.sql.SQLException;
+        import java.util.HashMap;
+        import java.util.Map;
         import java.util.logging.Level;
         import java.util.logging.Logger;
 
         import static ru.reso.resocalc.Utils.DAOUtils.dateToString;
+        import static ru.reso.resocalc.Utils.DAOUtils.getJSONfromMap;
         import static ru.reso.resocalc.Utils.DAOUtils.parseWebRowSet;
 
 public class PartnerFactory implements EntitiesUtils {
@@ -61,7 +64,7 @@ public class PartnerFactory implements EntitiesUtils {
 
             String key = name;
             String value = partners.getHash().get(name);
-            Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
+     //       Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
         }
         return partners;
     }
@@ -76,10 +79,9 @@ public class PartnerFactory implements EntitiesUtils {
         return null;
     }
 
-
     private String rowsToString(WebRowSet rs) throws SQLException {
 
-        String result = String.valueOf(rs.getLong("ID"))
+     /*   String result = String.valueOf(rs.getLong("ID"))
                 + "-" + String.valueOf(rs.getInt("TYPE"))
                 + "-" + rs.getString("ISRESIDENT")
                 + "-" + rs.getString("NAME")
@@ -90,7 +92,26 @@ public class PartnerFactory implements EntitiesUtils {
                 + "-" + rs.getString("DOCNUMBER")
                 + "-" + dateToString(rs.getDate("DOCISSUEDATE"))
                 + "-" + rs.getString("ADDRKLADR")
-                + "-" + rs.getString("VIPCLIENT");
+                + "-" + rs.getString("VIPCLIENT"); */
+
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("ID", String.valueOf(rs.getLong("ID")));
+        map.put("TYPE", String.valueOf(rs.getInt("TYPE")));
+        map.put("ISRESIDENT", rs.getString("ISRESIDENT"));
+        map.put("NAME", rs.getString("NAME"));
+        map.put("BIRTHDATE", dateToString(rs.getDate("BIRTHDATE")));
+        map.put("LICENCESERIA", rs.getString("INN"));
+        map.put("DOCTYPE", String.valueOf(rs.getInt("DOCTYPE")));
+        map.put("DOCSERIA", rs.getString("DOCSERIA"));
+        map.put("DOCNUMBER", rs.getString("DOCNUMBER"));
+        map.put("DOCISSUEDATE", dateToString(rs.getDate("DOCISSUEDATE")));
+        map.put("ADDRKLADR", rs.getString("ADDRKLADR"));
+        map.put("VIPCLIENT", rs.getString("VIPCLIENT"));
+
+
+        String result = getJSONfromMap(map);
 
 
         return result;

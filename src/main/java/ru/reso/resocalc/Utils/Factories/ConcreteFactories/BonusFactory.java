@@ -156,4 +156,30 @@ public class BonusFactory implements EntitiesUtils {
 
     }
 
+    public String getBonusDescription(int id) {
+
+        String result = null;
+
+        try {
+            String sql = sqlLogging.SQL_GET_PREMIUM_DESC_BY_ID;
+            StmtParamList paramList = new StmtParamList();
+            paramList.add(new StmtParam(Types.INTEGER, id));
+            DBConnection conn = new DBConnection();
+            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
+            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+
+            if (rs == null) {
+                return null;
+            } else {
+                if (rs.next()) {
+                    result = rs.getString("DESCR");
+                }
+
+            }
+        } catch (SQLException e) {
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
+        }
+        return result;
+
+    }
 }
