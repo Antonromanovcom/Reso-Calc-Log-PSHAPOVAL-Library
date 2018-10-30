@@ -6,7 +6,7 @@
 package ru.reso.resocalc.Utils;
 
 /**
- *
+ * В этом интерфейсе хранятся все SQL-запросы.
  * @author SHAPPN
  */
 public interface sqlLogging {
@@ -623,6 +623,9 @@ public interface sqlLogging {
 
     final String SQL_GET_WS_COMMON_LOGS_DESCRIPTION
             = " select COLUMN_NAME, C.COMMENTS from user_col_comments C join user_tab_cols K using(TABLE_NAME,COLUMN_NAME) where table_name = 'WS_COMMON_LOGS' AND COLUMN_NAME = ?";
+
+    final String SQL_GET_COEFFS_COUNT_BY_ID
+            = "select count(*) as COUNT from webauto.WS_COEFF_CALC t where t.calcid = ?";
 
 
 

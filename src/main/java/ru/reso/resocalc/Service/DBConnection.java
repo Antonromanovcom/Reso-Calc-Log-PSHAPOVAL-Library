@@ -8,25 +8,15 @@ package ru.reso.resocalc.Service;
 
 import ru.reso.wp.srv.ResoRemoteObject;
 import ru.reso.wp.srv.db.models.StmtParamList;
-import java.io.Serializable;
 import java.sql.SQLException;
-import javax.naming.NamingException;
 
-//import ru.reso.wp.srv.db.models.StmtParamList;
 
 /**
- *
+ * Класс, инкапсулирующий работу с БД через РесоСерверИнтеракт. Тут без комментариев. Как бэ все понятно.
  * @author SHAPPN
  */
-//public class DBConnection extends ResoRemoteObject implements Serializable {
 public class DBConnection extends ResoRemoteObject {
-    private  String currentDB = "OSAGO";
-
-    //public DBConnection() throws NamingException, SQLException, ClassNotFoundException {
-        //super();
-
-        //super.getResobj_EjbDatabaseInteraction();
-    //}
+    private  String currentDB = "OSAGO"; // БД с которой работаем.
 
     /**
      * Вызов хранимых процедур   

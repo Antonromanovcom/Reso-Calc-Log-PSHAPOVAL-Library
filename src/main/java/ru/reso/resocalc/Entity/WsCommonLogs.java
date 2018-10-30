@@ -5,6 +5,8 @@
  */
 package ru.reso.resocalc.Entity;
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.LinkedHashMap;
@@ -12,7 +14,11 @@ import java.util.Map;
 
 /**
  *
- * @author SHAPPN
+ * @author ROMAB
+ *
+ * Логгирование коэфициентов. Внутренний Unit-класс для ArrayList'а WsCoeffClass
+ *
+ *
  */
 public class WsCommonLogs implements Serializable, CalcEntity {
     private static final long serialVersionUID = 1L;
@@ -435,10 +441,6 @@ public class WsCommonLogs implements Serializable, CalcEntity {
     }
 
 
-    @Override
-    public String getTest() {
-        return null;
-    }
 
     @Override
     public void addToHash(String key, String value) {

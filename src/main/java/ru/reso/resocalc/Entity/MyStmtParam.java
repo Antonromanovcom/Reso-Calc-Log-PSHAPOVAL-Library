@@ -2,6 +2,10 @@ package ru.reso.resocalc.Entity;
 
 import ru.reso.wp.srv.db.models.StmtParam;
 
+
+/**
+ * Это какой-то класс SHAPP для передачи в БД для SQL-запроса параметров
+  */
 public class MyStmtParam extends StmtParam {
 
     private String fieldName;

@@ -5,6 +5,8 @@
  */
 package ru.reso.resocalc.Entity;
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
@@ -13,6 +15,8 @@ import java.util.LinkedHashMap;
 /**
  *
  * @author ROMAB
+ *
+ * По сути класс основного логгирования.
  */
 public class WsCalcLogsNew2 implements Serializable, CalcEntity {
 
@@ -704,15 +708,9 @@ public class WsCalcLogsNew2 implements Serializable, CalcEntity {
         return hash;
     }
 
-    @Override
-    public String getTest() {
-        return null;
-    }
-
     public void addToHash(String key, String value) {
         this.hash.put(key, value);
     }
-
 
     public void addToHashAll(LinkedHashMap<String, String> map) {
         this.hash.putAll(map);

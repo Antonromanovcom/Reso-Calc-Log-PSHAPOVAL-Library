@@ -1,5 +1,6 @@
 package ru.reso.resocalc.Entity;
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -7,6 +8,10 @@ import java.util.LinkedHashMap;
 /**
  *
  * @author ROMAB
+ *
+ * Логгирование коэфициентов. Основной родительский класс
+ *
+ *
  */
 public class WsCoeff implements Serializable, CalcEntity {
 

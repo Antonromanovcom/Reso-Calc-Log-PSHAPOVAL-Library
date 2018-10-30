@@ -5,24 +5,20 @@
  */
 package ru.reso.resocalc.Entity;
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
+import ru.reso.resocalc.Entity.SubEntities.PartnerUnit;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author ROMAB
+ *
+ * Логгирование Партнеров
+ *
  */
 
 public class WsPartner  implements Serializable, CalcEntity {
@@ -30,13 +26,8 @@ public class WsPartner  implements Serializable, CalcEntity {
 
     private ArrayList<PartnerUnit> partnerList = new ArrayList<>();
     private LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
+
     public WsPartner() { }
-
-
-    @Override
-    public String getTest() {
-        return null;
-    }
 
     @Override
     public void addToHash(String key, String value) {

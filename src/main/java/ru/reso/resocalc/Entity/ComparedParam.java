@@ -1,11 +1,15 @@
 package ru.reso.resocalc.Entity;
 
+
+/**
+ * Класс, который мы пихаем в ХэшМеп, который мы и передаем на клиента.
+ */
 public class ComparedParam {
 
-    private String key;
-    private String val1;
-    private String val2;
-    private Boolean compare;
+    private String key; //ключ. Как правило это название поля
+    private String val1; // значение для calcid #1
+    private String val2; // значение для calcid #2
+    private Boolean compare; // В последней версии сервера мы теперь для некоторых таблиц сравнение делаем на сервере. как и должно быть.
 
     public ComparedParam(String name, String s, String s1) {
         this.key = name;

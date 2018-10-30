@@ -6,6 +6,9 @@
 package ru.reso.resocalc.Entity;
 
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
+import ru.reso.resocalc.Entity.SubEntities.WsBonusUnit;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,19 +17,15 @@ import java.util.Map;
 /**
  *
  * @author ROMAB
+ *
+ * Логгирование Премий
+ *
  */
 public class WsPremium implements Serializable, CalcEntity {
 
 
     private ArrayList<WsBonusUnit> bonusList = new ArrayList<>();
     private LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
-
-
-
-    @Override
-    public String getTest() {
-        return null;
-    }
 
     @Override
     public void addToHash(String key, String value) {
@@ -37,9 +36,6 @@ public class WsPremium implements Serializable, CalcEntity {
     public Map<String, String> getHash() {
         return hash;
     }
-
-
-
 
     public ArrayList<WsBonusUnit> getBonusList() {
         return bonusList;

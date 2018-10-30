@@ -1,8 +1,5 @@
 package ru.reso.resocalc.Entity;
 
-
-import ru.reso.resocalc.Utils.WsLogDictonary;
-
 import java.io.Serializable;
 
 /**
@@ -50,19 +47,6 @@ public class WsCoeffCalc implements Serializable {
     public void setValue(double value) {
         this.value = value;
     }
-
-    /**
-     * Конструктор 
-     * @param calcid идентификатор расчета
-     * @param coeff коэффициент
-     * @param value значение
-     */
-    public void WsCoeffCalc(long calcid, WsLogDictonary.CalcCoeff coeff, double value ) {
-        this.calcid = calcid;
-        this.coefid = coeff.getIndex();
-        this.value = value;
-    }
-
 
     public String getTest() {
         return test;

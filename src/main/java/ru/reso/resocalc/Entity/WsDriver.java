@@ -5,27 +5,27 @@
  */
 package ru.reso.resocalc.Entity;
 
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
+import ru.reso.resocalc.Entity.SubEntities.DriverUnit;
+
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  *
- * @author KOVAVV
+ * @author ROMAB
+ *
+ * Логгирование водителей
+ *
  */
 public class WsDriver implements Serializable, CalcEntity {
 
     private ArrayList<DriverUnit> driversList = new ArrayList<>();
     private LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
-    public WsDriver() { } 
 
-
-    @Override
-    public String getTest() {
-        return null;
-    }
+    public WsDriver() { }
 
     @Override
     public void addToHash(String key, String value) {

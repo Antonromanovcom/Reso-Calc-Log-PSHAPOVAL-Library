@@ -5,16 +5,14 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import ru.reso.resocalc.Entity.CalcEntity;
+import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
 import ru.reso.resocalc.Entity.MyStmtParamList;
-import ru.reso.resocalc.Entity.Unit;
-import ru.reso.resocalc.Entity.WsBonusUnit;
+import ru.reso.resocalc.Entity.Interfaces.Unit;
 import ru.reso.resocalc.Service.DBConnection;
 import ru.reso.resocalc.Service.FileLog;
 import ru.reso.wp.srv.db.ResoDatabaseInvoke;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
-
 import javax.sql.rowset.WebRowSet;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -23,24 +21,36 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+/**
+ * author - ROMAB
+ *
+ * Основные методы-утилиты для работы с Энтити, а так же необходимые фабрикам. Основные типовые обработчики вынесены сюда.
+ */
 public class DAOUtils {
 
+    /**
+     * Получаем имя класса из Объекта
+     * @param cls
+     * @return - имя класса с путем пакета
+     */
     public static String getClassName(Object cls) {
         String res = "";
         res = cls.getClass().getName();
         return res;
     }
 
-    /*public static Boolean setValueInEntity(Object anyClass, String name) {
-    }*/
-
+    /**
+     * Ищем поле в заданном классе
+     * @param anyClass
+     * @param name
+     * @return - есть поле - true, нет поля - false
+     */
     public static Boolean searchInClassFields(Object anyClass, String name) {
 
         Boolean result = false;
@@ -66,15 +76,27 @@ public class DAOUtils {
         return result;
     }
 
+
+    /**
+     * Уникальный по сути метод. Парсер. Мы даем calcid, Объект (Энтити), в который будем парсить и SQL-запрос. И он нам возвращаем список параметров
+     * в зависимости от того, какие поля есть в классе, сам подбирая типы данных. то есть он соотносит поля в запросе и поля в классе. Через Рефлексию.
+     *
+     * Так же он может сам генерить запросы. Но пока не все.
+     *
+     * На самом деле эта фигня написана только для WsCalcLog. А для механизма сравнения это не нужно. В следующей итерации (в следующем коммите) удалим это....
+     *
+     * @param sql
+     * @param cls
+     * @param calcid
+     * @return
+     */
     public static StmtParamList paramListGenerator2(String sql, Object cls, Long calcid) {
 
 
         FileLog fileLog = new FileLog();
-        Long baseCalcId = 122865290L;
+        Long baseCalcId = 122865290L; // просто временный id, чтобы хоть как-то обратиться к табличке. На самом деле надо все выкачивать и все (*), и убрать это в будущем.
         StmtParamList paramList = new StmtParamList();
-        MyStmtParamList myParamList = new MyStmtParamList();
-        //  insertSQL = "insert into webauto.WS_CALC_LOGS_NEW (";
-        //  updateSQL = "update webauto.WS_CALC_LOGS_NEW set ";
+        MyStmtParamList myParamList = new MyStmtParamList(); // парамлист, куда мы будем закачивать параметры
         String params = "";
 
         try {
@@ -84,7 +106,7 @@ public class DAOUtils {
 
             paramList1.add(new StmtParam(Types.BIGINT, baseCalcId));
             DBConnection conn = new DBConnection();
-            String rsStr = conn.prepareStatementExecuteQuery(sql1, paramList1);
+            String rsStr = conn.prepareStatementExecuteQuery(sql1, paramList1); // выкачивакем табличку, чтобы бегать по ее полям.
             WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
 
 
@@ -155,7 +177,7 @@ public class DAOUtils {
             }
 
             try {
-                fileLog.saveAllReportPanels4("D:/log777_2.txt", paramList);
+                fileLog.saveAllReportPanels4("D:/log777_2.txt", paramList); // логгируем в файл
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -173,6 +195,7 @@ public class DAOUtils {
         return paramList;
     }
 
+    // Количество записей в РезультСете
     public static int resultSetCount(WebRowSet resultSet) throws SQLException {
         try {
             int i = 0;
@@ -187,6 +210,12 @@ public class DAOUtils {
         return 0;
     }
 
+    /**
+     * Возвращаем тип поля.  Данный метод позволяет вернуть тип поля по его имени, давая нам нужный уровень абстракции и автоматизации
+     * @param anyClass - класс в котором мы ищем поле. Собственно его и хотим вернуть.
+     * @param name - имя поля, которое ищем.
+     * @return
+     */
     public static int getLocalFieldType(Object anyClass, String name) {
 
         int varType = 0;
@@ -195,49 +224,49 @@ public class DAOUtils {
             Class<?> clazz = Class.forName(className);
             for (Field field : clazz.getDeclaredFields()) {
                 if (name != null && (field.getName()) != null) {
-                    String s = "Мы ищем - " + name;
-                    //       Logger.getLogger("").log(Level.SEVERE, s, "!!!");
-                    if (field.getName().equalsIgnoreCase(name)) {
+
+
+                    if (field.getName().equalsIgnoreCase(name)) { // если имя нашли в классе через рефликсию, то определяем его (поля) тип....
 
                         if (field.getType().isAssignableFrom(Long.class)) {
-                            //             Logger.getLogger("").log(Level.SEVERE, "Поле являеется Лонг (мы сейчас определяем тип (а не значение))", "!!!");
+
                             varType = Types.BIGINT;
                             break;
                         } else if (field.getType().isAssignableFrom(long.class)) {
                             varType = Types.BIGINT;
-                            //             Logger.getLogger("").log(Level.SEVERE, "Поле - маленький Лонг", "!!!");
+
                             break;
                         } else if (field.getType().isAssignableFrom(int.class)) {
                             varType = Types.INTEGER;
-                            //         Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
+
                             break;
                         } else if (field.getType().isAssignableFrom(String.class)) {
                             varType = Types.VARCHAR;
-                            //              Logger.getLogger("").log(Level.SEVERE, "Пиздец какой-то - поле-то у нас СТРИНГ", "!!!");
+
                             break;
                         } else if (field.getType().isAssignableFrom(Integer.class)) {
                             varType = Types.INTEGER;
-                            Logger.getLogger("").log(Level.SEVERE, "А мы нашли Integer", "!!!");
+
                             break;
 
                         } else if (field.getType().isAssignableFrom(Double.class)) {
                             varType = Types.DOUBLE;
-                            //       Logger.getLogger("").log(Level.SEVERE, "А мы нашли Double", "!!!");
+
                             break;
 
                         } else if (field.getType().isAssignableFrom(double.class)) {
                             varType = Types.DOUBLE;
-                            //     Logger.getLogger("").log(Level.SEVERE, "А мы нашли Double", "!!!");
+
                             break;
 
                         } else if (field.getType().isAssignableFrom(java.sql.Date.class)) {
                             varType = Types.DATE;
-                            //     Logger.getLogger("").log(Level.SEVERE, "А мы нашли SQL дату", "!!!");
+
                             break;
                         } else {
-                            //varType = Types.DATE;
+
                             varType = Types.TIMESTAMP;
-                            //      Logger.getLogger("").log(Level.SEVERE, "Поставили TIMESTAMP", "!!!");
+
                         }
                     }
                 }
@@ -263,7 +292,6 @@ public class DAOUtils {
             for (Field field : clazz.getDeclaredFields()) { //Бегаем по полям класса
                 if (name != null && (field.getName()) != null) { // Проверяем, что у нас не ноль и переданное в параметре метода имя и текунщее пробегаемое в цикле поле класса
 
-                    //if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
                     if (field.getName().equalsIgnoreCase(name)) {
                         realFieldName = field.getName();
                     }
@@ -275,6 +303,12 @@ public class DAOUtils {
         return realFieldName;
     }
 
+    /** Вытаскиваем данные по запросу (который передаем в параметре) и конвертим его в WebRowSet, который и возвращаем....
+     *
+     * @param userSQL
+     * @param calcid
+     * @return
+     */
     public static WebRowSet getWebRowSetByCalcId(String userSQL, long calcid) {
 
         WebRowSet rs = null;
@@ -295,11 +329,18 @@ public class DAOUtils {
         return rs;
     }
 
+
+    /**
+     * Вытаскиваем количество записей по запросу и calc id
+     * @param sql - sql по которому надо вытащить количество записей
+     * @param calcid - calcid для sql
+     * @return - количество записей
+     */
     public Integer getReordsCountByIdAndSQL(String sql, long calcid) {
         Integer result = null;
 
         try {
-            //String sql = sqlLogging.SQL_GET_CALC_COEFF_COUNT_BY_ID;
+
             StmtParamList paramList = new StmtParamList();
             paramList.add(new StmtParam(Types.BIGINT, calcid));
             DBConnection conn = new DBConnection();
@@ -321,14 +362,28 @@ public class DAOUtils {
         return result;
     }
 
+    /**
+     * Моя собственная и довольно прикольная разработка. Метод парсит WebRowSet, который ему передали и пихает в переданный ему
+     * так же в параметрах Unit значения через рефлексию (без сеттеров, включая защищенные поля). Причем не просто пихает.
+     * Он парсит WebRowSet, через МетаДата берет названия полей в БД и тип, ищет их в переданном ему Object? подбирает соответствующий тип
+     * и уже после этого через рефлексию пихает в класс.
+     * @param count - количество записей в роусете. Сколько бегать-то...
+     * @param rs - сам роусет
+     * @param obj - Объект-шаблон, "с калькой" которого сравниваем поля роусета.
+     * @param unit - Унит в который пихаем значения.
+     * @throws IllegalAccessException
+     *
+     * Данный метод работает только с табличками с вертикальной структурой, такими как Drivers. То есть там где используется Unit. Для простых таблиц
+     * используется parseWebRowSet2
+     */
     public static void parseWebRowSet(Integer count, WebRowSet rs, Object obj, Unit unit) throws IllegalAccessException {
 
         try {
             for (int i = 1; i <= count; i++) {
 
                 ResultSetMetaData rsmd = null;
-                rsmd = rs.getMetaData();
-                String fieldName = rsmd.getColumnName(i);
+                rsmd = rs.getMetaData(); // заливаем сюда метадату роусета.
+                String fieldName = rsmd.getColumnName(i); // хватаем имя столбца/поля в цикле.
                 if (DAOUtils.searchInClassFields(obj, fieldName)) { // если нашли поле в классе, то...
                     Integer fieldLocalType = DAOUtils.getLocalFieldType(obj, fieldName); // определяем тип поля
 
@@ -368,6 +423,14 @@ public class DAOUtils {
         }
     }
 
+    /**
+     * Версия parseWebRowSet для таблиц горизонтальной структуры. Без Юнитов.
+     * @param count - количество записей в роусете. Сколько бегать-то...
+     * @param rs - сам роусет
+     * @param obj - Объект-шаблон, "с калькой" которого сравниваем поля роусета.
+     * @param unit - куда пихаем значения
+     * @throws IllegalAccessException
+     */
     public static void parseWebRowSet2(Integer count, WebRowSet rs, Object obj, CalcEntity unit) throws IllegalAccessException {
 
         try {
@@ -415,6 +478,15 @@ public class DAOUtils {
         }
     }
 
+    /**
+     * Метод который парсит WebRowSet исключительно для взятия хэша. Используется в основном в CommonLogsFactory, но его возможно использовать и в других.
+     * В методе предусмотрена возможность фильтровать некоторые столбцы. Например я пока убрал сравнение по REQUEST'у. Он слишком длинный.
+     * @param count
+     * @param rs
+     * @param obj
+     * @return
+     * @throws IllegalAccessException
+     */
     public static LinkedHashMap<String, String> parseWebRowSet4GettingHash(Integer count, WebRowSet rs, Object obj) throws IllegalAccessException {
 
         LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
@@ -426,7 +498,7 @@ public class DAOUtils {
                 rsmd = rs.getMetaData();
                 String fieldName = rsmd.getColumnName(i);
 
-                if (!fieldName.equalsIgnoreCase("REQUESTMESSAGE")) { // если нашли поле в классе, то...
+                if (!fieldName.equalsIgnoreCase("REQUESTMESSAGE")) { // выхидываем XML запроса. Он слишком огромный.
                     if (DAOUtils.searchInClassFields(obj, fieldName)) { // если нашли поле в классе, то...
                         Integer fieldLocalType = DAOUtils.getLocalFieldType(obj, fieldName); // определяем тип поля
 
@@ -463,6 +535,14 @@ public class DAOUtils {
         return hash;
     }
 
+    /**
+     * Метод аналогичный parseWebRowSet4GettingHash, но для таблички Coeffs. Без дополнительнйо фильтрации - никаких столбцов ни выкидываем.
+      * @param count - сколько парсить. Количество записей.
+     * @param rs - сам роусет, который парсим-фигарсим
+     * @param obj - объект-шаблон.
+     * @return - ЛинкедХэшМэп. Выбрана эта коллекция чтобы сохранить insertionorder
+     * @throws IllegalAccessException
+     */
     public static LinkedHashMap<String, String> parseWebRowSet4GettingHash4Coeffs(Integer count, WebRowSet rs, Object obj) throws IllegalAccessException {
 
         LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
@@ -494,7 +574,6 @@ public class DAOUtils {
                     }
                 }
 
-
             }
 
         } catch (SQLException e) {
@@ -503,17 +582,22 @@ public class DAOUtils {
         return hash;
     }
 
+    /**
+     * В ХэшМеп, который мы отдаем клиенту дату мы пихаем как стринг с конвертацией. На клиенте в принципе по хрен что сравнивать. Суть та же.
+     * @param date
+     * @return
+     */
     public static String dateToString(java.sql.Date date) {
 
         String dateToString = "";
-        if (date == null) {
+        if (date == null) { // некоторые даты не заполнены в БД, поэтому обязательно надо сделать проверку на ноль.
 
             dateToString = "n/a";
 
         } else {
 
 
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); //формат в который конвертим дату
             dateToString = df.format(date);
 
         }
@@ -521,6 +605,7 @@ public class DAOUtils {
         return dateToString;
     }
 
+    // Для вертикальный таблиц таких как Drivers мы группы значений пихаем в JSON? сравниваем их прям так, а потом распарсиваем на клиенте и распихиваем по столбцам таблички.
     public static String getJSONfromMap(Map<String, Object> map) {
 
         String json = "";

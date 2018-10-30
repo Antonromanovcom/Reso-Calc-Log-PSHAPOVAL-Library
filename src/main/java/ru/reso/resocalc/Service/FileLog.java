@@ -3,15 +3,19 @@ package ru.reso.resocalc.Service;
 import ru.reso.resocalc.Entity.MyStmtParamList;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+
+/**
+ * author - @ROMAB
+ *
+ * Это мой класс, созданный еще при переведении отчетов с IceFaces на PrimeFaces для логгирования в файл. Так реально логгировать удобнее.
+ */
 
 public class FileLog {
 
@@ -178,7 +182,6 @@ public class FileLog {
 
     }
 
-
     private static void deleteFileIfExist(String file) throws IOException {
 
         File f = new File(file);
@@ -188,7 +191,6 @@ public class FileLog {
 
 
     }
-
 
     public void saveAllReportPanels4(String s, StmtParamList paramList) throws IOException {
 
