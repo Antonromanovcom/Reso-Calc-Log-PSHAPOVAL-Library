@@ -1,7 +1,9 @@
+ru\reso\resocalc\Entity\VarientType.class
 ru\reso\resocalc\Entity\WsPremium.class
 ru\reso\resocalc\Entity\WsCoeffCalc.class
 ru\reso\resocalc\Entity\WsCommonLogs.class
 ru\reso\resocalc\Service\DBConnection.class
+ru\reso\resocalc\Service\WsCoeffCalcDao.class
 ru\reso\resocalc\Service\Utils.class
 ru\reso\resocalc\Entity\WsCalcLogsNew.class
 ru\reso\resocalc\Entity\WsPartner.class

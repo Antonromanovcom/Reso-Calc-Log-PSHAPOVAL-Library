@@ -1,11 +1,13 @@
 package ru.reso.resocalc.Service;
 
+import java.lang.reflect.Field;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
 import javax.sql.rowset.WebRowSet;
+
 
 import ru.reso.resocalc.Entity.WsCalcLogsNew;
 import ru.reso.resocalc.Utils.sqlLogging;
@@ -24,90 +26,292 @@ public class WsCalcLogDao {
             StmtParamList paramList = WsCalcLogsNew2StmtParamList(wscalclog);
             DBConnection conn = new DBConnection();
             conn.prepareStatementExecute(sql, paramList);
-        //} catch (ClassNotFoundException | SQLException | NamingException e) {
-        } catch (SQLException  e) {
+        } catch (SQLException e) {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
         }
     }
 
-    public static String testPing(String sql) {
-        String test = "";
+    public static Object searchInClassFieldsAndGet(Object anyClass, String name) {
+
+        Object var = new Object();
+        String lookingForField = "МЫ ИЩЕМ  -  " + name;
+        Logger.getLogger("").log(Level.SEVERE, lookingForField, "!!!");
 
         try {
 
-            DBConnection conn = new DBConnection();
+            Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
 
-            StmtParamList paramList = new StmtParamList();
-            paramList.add(new StmtParam(Types.INTEGER, 122865181));
-            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
-            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
-            //calcLog = webRowSet2WsCalcLogsNew(rs);
+            for (Field field : clazz.getDeclaredFields()) {
+                if (name != null && (field.getName()) != null) {
 
-            if (rs.next()) {
-                test = rs.getString("insurantid");
+                 //   Logger.getLogger("").log(Level.SEVERE, "Имя искомого поля и имя поля, вытаскиваемого из класса не ноль", "!!!");
+
+                    if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
+
+                        Logger.getLogger("").log(Level.SEVERE, "Нашли поле в классе", "!!!");
+
+                        // Теперь, когда мы нашли поле, нам надо попробовать вытащить его тип.
+
+                        //if (field.getType().isInstance(long.class)) {
+                        if (field.getType().isAssignableFrom(Long.class)) {
+                            try {
+                                Logger.getLogger("").log(Level.SEVERE, "Поле являеется Лонг", "!!!");
+
+                                field.setAccessible(true);
+                                var = (Long) field.get(anyClass);
+                                String catchedValue = "Мы поймали - " + String.valueOf(var);
+                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (field.getType().isAssignableFrom(int.class)){
+                            try {
+                                Logger.getLogger("").log(Level.SEVERE, "Поле являеется Integer", "!!!");
+                                field.setAccessible(true);
+                                var = (Integer) field.get(anyClass);
+                                String catchedValue = "Мы поймали - " + String.valueOf(var);
+                                Logger.getLogger("").log(Level.SEVERE, catchedValue, "!!!");
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            //Logger.getLogger("").log(Level.SEVERE, "Поле НЕ Лонг", "!!!");
+                            //String tempType = "А поле у нас - " + field.getType().toString();
+                            //Logger.getLogger("").log(Level.SEVERE, tempType, "!!!");
+                            var = new Long(15);
+
+                        }
+
+                        //var = new Long(15);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return var;
+    }
+
+    public static int getLocalFieldType(Object anyClass, String name) {
+        return Types.NUMERIC;
+    }
+
+    public static Boolean searchInClassFields(Object anyClass, String name) {
+        //public static Boolean searchInClassFields(WsCalcLogsNew anyClass, String name) {
+
+        Boolean result = false;
+
+        //Logger.getLogger("").log(Level.SEVERE, "ПИЗДЕЦОК", "Мы получили класс");
+
+        for (Field field : anyClass.getClass().getFields()) {
+            //     System.out.println(field.getName());
+            //Logger.getLogger("").log(Level.SEVERE, "ХЕРЬ", "Мы нашли поле");
+
+            if (name != null && (field.getName()) != null) {
+                if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
+                    result = true;
+                }
+            }
+        }
+
+        try {
+
+            Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
+
+            for (Field field : clazz.getDeclaredFields()) {
+                //      Logger.getLogger("").log(Level.SEVERE, "ХЕРЬ-3", "Мы нашли поле");
+                if (name != null && (field.getName()) != null) {
+                    if (org.apache.commons.lang3.StringUtils.containsIgnoreCase(field.getName(), name)) {
+                        result = true;
+                    }
+                }
+
             }
 
-
-        //} catch (SQLException | NamingException | ClassNotFoundException e) {
-        } catch (SQLException  e) {
-            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return test;
+        return result;
     }
 
-    public static String testLogByCalcID(long calcid) {
-        WsCalcLogsNew calcLog = null;
-        String rsStr = "";
+    public static StringBuffer paramListGenerator(WsCalcLogsNew wsCalcLogsNew, Long calcid) {
+        StringBuffer strBuffer = new StringBuffer();
+
+
+        //StmtParamList paramList = new StmtParamList();
+
+/*try { */
+  /*      for (Field field: wsCalcLogsNew.getClass().getFields()) {
+           System.out.println(field.getName());
+           System.out.println(field.getType());
+            Logger.getLogger("").log(Level.SEVERE, "ХЕРЬ-2", "Мы нашли поле");
+    //       field.setAccessible(true);
+  //         String value = (String) field.get(wsCalcLogsNew);
+
+        }
+//}
+
+        //strBuffer.append("Name: " + field.getName() + "| Type: " + field.getType());
+     /*   strBuffer.append("Name: ");
+        strBuffer.append(wsCalcLogsNew.getCarmodelname());
+        strBuffer.append("  |  ");
+
+*/
+  /*      try {
+            //Foobar foobar = new Foobar("Peter");
+
+            Class<?> clazz = Class.forName("ru.reso.resocalc.Entity.WsCalcLogsNew");
+
+            strBuffer.append("Class: ");
+            strBuffer.append(clazz);
+            strBuffer.append("  |  ");
+
+            Field field = clazz.getDeclaredField("carbrandname");
+            field.setAccessible(true);
+            String value = (String) field.get(wsCalcLogsNew);
+
+            strBuffer.append("carbrandname: ");
+            strBuffer.append(value);
+            strBuffer.append("  |  ");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //   Object temp = new Object();
+        //   Class ws = WsCalcLogsNew.class;
+        //  WsCalcLogsNew instance = new WsCalcLogsNew();
+        //String instance = null;
+
+          /*  if (field.getType().isInstance(String.class)){
+                try {
+                    temp = field.get(instance);
+                    String value = (String) field.get(instance);
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+            System.out.println(temp);
+            strBuffer.append("| Value: " + temp);
+        }*/
+        //  }
 
         try {
-            //String sql = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
-              String sql = "select * from webauto.WS_CALC_LOGS_NEW t where t.calcid=?";
-                          //select * from webauto.WS_CALC_LOGS_NEW t  where t.calcid = ?";
-            //String sql = "select * from  webauto.ws_calc_logs_new t where t.calcid = ?"; // OSAGO
 
+            String sql = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
             StmtParamList paramList = new StmtParamList();
-            //paramList.add(new StmtParam(Types.NUMERIC, calcid));//CALCID
-            paramList.add(new StmtParam(Types.INTEGER, 122865181));
-
+            paramList.add(new StmtParam(Types.BIGINT, calcid));
             DBConnection conn = new DBConnection();
-            rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
-            Logger.getGlobal().log(Level.INFO, "I have connect from testLogByCalcID" , "ITS OK");
-            Logger.getGlobal().log(Level.INFO, rsStr , "Log for result String");
+            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
+            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
 
 
-        //} catch (SQLException | NamingException | ClassNotFoundException e) {
+            if (rs == null) {
+                strBuffer.append("  |  WEBROWSET IS EMPTY |  ");
+            } else {
+
+                while (rs.next()) {
+                    ResultSetMetaData rsmd = rs.getMetaData();
+
+                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                        if (i > 1) {
+                            strBuffer.append(",");
+                        }
+
+                        int type = rsmd.getColumnType(i); //Оракл-тип (данных) текущего поля
+                        String typeName = rsmd.getColumnTypeName(i);
+                        String columnClassName = rsmd.getColumnClassName(i);
+
+                        // Определяем есть ли такое поле (на котором мы сейчас в результсете (rs.next)) вообще. Такое - в смысле с таким же именем
+                        Boolean isFound = searchInClassFields(wsCalcLogsNew, rsmd.getColumnName(i));
+
+
+                        // Если поле нашли, тогда надо проверить его тип и сконвертить Оракл тип к Java типу
+                        if (isFound) {
+                            switch (type) {
+                                case Types.NUMERIC:
+                                    //    Logger.getLogger("").log(Level.SEVERE, "Цифирь", "Мы нашли поле");
+
+
+                                    /**Теперь надо сконвертить тип поля из класса в тип поля SQL. Связано это с тем, что SQL возвращает везде NUMERIC,
+                                     * А в классах есть и long, и double, и integer.
+                                     */
+                                    int typeForParamList = getLocalFieldType(wsCalcLogsNew, rsmd.getColumnName(i));
+
+
+                                    // Ищем поле с таким именем в классе
+                                    paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wsCalcLogsNew, rsmd.getColumnName(i))));
+
+                                    /**
+                                     * 1. ЦИКЛ ПО ВСЕМ ПОЛЯМ У НАС УЖЕ ЕСТЬ. МЫ В НЕМ
+                                     * 2. НАДО СДЕЛАТЬ ЦИКЛ ПО ВСЕМ ПОЛЯМ КЛАССА
+                                     * 3. ВЗЯТЬ ЗНАЧЕНИЕ
+                                     * 4. ПИХНУТЬ В ПАРАМЛИСТ
+                                     */
+                                case Types.VARCHAR:
+
+
+                                case Types.TIMESTAMP:
+                                    //         Logger.getLogger("").log(Level.SEVERE, "ДАТА", "Мы нашли поле");
+
+                            }
+
+                        }
+
+
+                        //paramList.add(new StmtParam(Types.NUMERIC, rsmd.getColumnName(i)));
+
+                        //   }
+
+
+                        for (StmtParam field : paramList) {
+
+                       //     Logger.getLogger("").log(Level.SEVERE, String.valueOf(field.getValue()), "Мы нашли поле");
+
+                        }
+
+                        strBuffer.append("[");
+                        strBuffer.append(rsmd.getColumnName(i));
+                        strBuffer.append("]");
+                        strBuffer.append("-");
+                        strBuffer.append("[");
+                        strBuffer.append(type);
+                        strBuffer.append("]");
+                    }
+
+                    strBuffer.append("   ИТОГО  ");
+                    strBuffer.append(rsmd.getColumnCount());
+                    strBuffer.append("   ЕБАНОЕ ПОЛЕ");
+                }
+
+                //strBuffer.append("  |  WEBROWSET IS NOT EMPTY |  ");
+
+            }
+
         } catch (SQLException e) {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
         }
 
-        return rsStr;
+        return strBuffer;
     }
 
     public static WsCalcLogsNew getLogByCalcID(long calcid) {
         WsCalcLogsNew calcLog = null;
 
         try {
-            //String sql = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
-            String sql = "select * from webauto.WS_CALC_LOGS_NEW t where t.calcid=?";
 
-//                        select * from webauto.WS_CALC_LOGS_NEW t where t.calcid = ?";
-            Long calc =  122865181L;
-
-
+            String sql = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
             StmtParamList paramList = new StmtParamList();
-            //paramList.add(new StmtParam(Types.NUMERIC, calcid));//CALCID
-            paramList.add(new StmtParam(Types.BIGINT, calc));
-            //paramList.add(new StmtParam(Types.INTEGER, 12286518));
-
+            paramList.add(new StmtParam(Types.BIGINT, calcid));
             DBConnection conn = new DBConnection();
             String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
-            //Logger.getGlobal().log(Level.INFO, rsStr , "Log for result String");
             WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
-
             calcLog = webRowSet2WsCalcLogsNew(rs);
 
-        //} catch (SQLException | NamingException | ClassNotFoundException e) {
         } catch (SQLException e) {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
         }
@@ -118,7 +322,9 @@ public class WsCalcLogDao {
     private static StmtParamList WsCalcLogsNew2StmtParamList(WsCalcLogsNew wsCalcLogsNew) {
 
         StmtParamList paramList = new StmtParamList();
-        paramList.add(new StmtParam(Types.NUMERIC, wsCalcLogsNew.getCalcid()));//CALCID  
+
+
+        paramList.add(new StmtParam(Types.NUMERIC, wsCalcLogsNew.getCalcid()));//CALCID
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getNotapplyspecprogdiscount()));//NOTAPPLYSPECPROGDISCOUNT
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getTargetcompany()));//TARGETCOMPANY
         paramList.add(new StmtParam(Types.VARCHAR, wsCalcLogsNew.getCarbrandname()));//CARBRANDNAME
@@ -184,6 +390,7 @@ public class WsCalcLogDao {
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getEquifaxScore()));//EQUIFAXSCORE
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getPolicyType()));//POLICYTYPE
         paramList.add(new StmtParam(Types.INTEGER, wsCalcLogsNew.getCustomKb()));//CUSTOMKB
+
 
         return paramList;
     }
@@ -271,7 +478,7 @@ public class WsCalcLogDao {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to convert webRowSet to WsCalcLogsNew", e);
         } finally {
             try {
-                    rs.close();
+                rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", ex);
             }
@@ -279,4 +486,20 @@ public class WsCalcLogDao {
 
         return calcLog;
     }
+
+    private void UpdateWsCalcLogsNew(WsCalcLogsNew wsCalcLogsNew) {
+
+        try {
+
+            String sql = sqlLogging.SQL_UPDATE_WsCalcLogNEW;
+            StmtParamList paramList = WsCalcLogsNew2StmtParamList(wsCalcLogsNew);
+            DBConnection conn = new DBConnection();
+            conn.prepareStatementExecute(sql, paramList);
+
+        } catch (SQLException e) {
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
+        }
+    }
+
+
 }
