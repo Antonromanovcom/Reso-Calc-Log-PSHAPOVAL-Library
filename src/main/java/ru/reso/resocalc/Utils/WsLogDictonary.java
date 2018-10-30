@@ -14,6 +14,8 @@ public interface WsLogDictonary {
         calc,
         save;
     }
+
+
     
     enum PartnerType {
         INSURED(1),
@@ -296,5 +298,9 @@ public interface WsLogDictonary {
             return result;
         }
     }
+
+
+
+
 
 }

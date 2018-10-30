@@ -1,5 +1,7 @@
 package ru.reso.resocalc.Service;
 
+import ru.reso.resocalc.Entity.MyStmtParamList;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,17 +13,14 @@ import java.util.HashMap;
 public class FileLog {
 
 
-
-
-
     public void appendLogEntry(String text) {
 
         Path filePath = Paths.get("D:/resocalc_CHECK.txt");
-        text=text+"\n";
+        text = text + "\n";
         try {
-        if (!Files.exists(filePath)) {
+            if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-        }
+            }
 
             Files.write(filePath, text.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
@@ -35,7 +34,7 @@ public class FileLog {
 
         try {
             //String str = "SomeMoreTextIsHere";
-            File newTextFile = new File("D:/log.txt");
+            File newTextFile = new File("D:/log777.txt");
 
             FileWriter fw = new FileWriter(newTextFile);
             fw.write(text + "\n");
@@ -79,7 +78,7 @@ public class FileLog {
             //FileWriter fw = new FileWriter(newTextFile);
 
             for (String key : map.keySet()) {
-                text = "Panel: " + panelName + " .Key: " + key + ", Value: " + map.get(key) + "\n" ;
+                text = "Panel: " + panelName + " .Key: " + key + ", Value: " + map.get(key) + "\n";
                 Files.write(filePath, text.getBytes(), StandardOpenOption.APPEND);
             }
 
@@ -103,20 +102,21 @@ public class FileLog {
 
         FileWriter writer = new FileWriter(file);
         int size = panels.size();
-        for (int i=0;i<size;i++) {
+        for (int i = 0; i < size; i++) {
             String str = panels.get(i).toString();
-            writer.write(str+ "\n");
+            writer.write(str + "\n");
 
-            if(i < size-1)
-            writer.write("\n");
+            if (i < size - 1)
+                writer.write("\n");
         }
 
-        writer.write("CURRENT REPORT = " + reportName  + "\n");
+        writer.write("CURRENT REPORT = " + reportName + "\n");
         writer.close();
 
 
     }
-    public void saveAllReportPanels2(String reportName, ArrayList<String> panels) throws IOException {
+
+    public void saveAllReportPanels2(ArrayList<String> panels) throws IOException {
 
 
         String file = "D:/reportPanels2.txt";
@@ -125,16 +125,62 @@ public class FileLog {
 
         FileWriter writer = new FileWriter(file);
         int size = panels.size();
-        for (int i=0;i<size;i++) {
+        for (int i = 0; i < size; i++) {
             String str = panels.get(i).toString();
-            writer.write(str+ "\n");
+            writer.write(str + "\n");
 
-            if(i < size-1)
+            if (i < size - 1)
                 writer.write("\n");
         }
 
-        writer.write("CURRENT REPORT = " + reportName  + "\n");
+        //writer.write("CURRENT REPORT = " + reportName  + "\n");
         writer.close();
+
+
+    }
+
+    public void saveAllReportPanels3(MyStmtParamList paramList) throws IOException {
+
+        String varName = "";
+        String varType = "";
+        Object varValue;
+        String varValueStr;
+        String separator = " - ";
+        String str = "";
+
+        String file = "D:/log777_7.txt";
+        ObjectOutput out = null;
+        deleteFileIfExist(file);
+
+
+        FileWriter writer = new FileWriter(file);
+
+
+        int size = paramList.size();
+        for (int i = 0; i < size; i++) {
+            varName = paramList.get(i).getFieldName();
+            varType = paramList.get(i).getFieldType();
+            varValue = paramList.get(i).getValue();
+            varValueStr = String.valueOf(varValue);
+            str = varName + separator + varType + separator + varValue;
+            writer.write(str + "\n");
+
+            if (i < size - 1)
+                writer.write("\n");
+        }
+
+        //writer.write("CURRENT REPORT = " + reportName  + "\n");
+        writer.close();
+
+    }
+
+
+    private static void deleteFileIfExist(String file) throws IOException {
+
+        File f = new File(file);
+        if (f.exists() && !f.isDirectory()) {
+            f.delete();
+        }
 
 
     }
