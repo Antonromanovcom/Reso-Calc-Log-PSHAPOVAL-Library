@@ -64,4 +64,8 @@ public class WsCoeff implements Serializable, CalcEntity {
     public void setCoeffCalcList(ArrayList<WsCoeffCalc> coeffCalcList) {
         this.coeffCalcList = coeffCalcList;
     }
+
+    public void addToHashAll(LinkedHashMap<String, String> map) {
+        this.hash.putAll(map);
+    }
 }

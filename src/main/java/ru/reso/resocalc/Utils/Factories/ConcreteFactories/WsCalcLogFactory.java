@@ -1,28 +1,72 @@
 package ru.reso.resocalc.Utils.Factories.ConcreteFactories;
 
-import ru.reso.resocalc.Entity.CalcEntity;
+
+import ru.reso.resocalc.Entity.*;
 import ru.reso.resocalc.Service.DBConnection;
+import ru.reso.resocalc.Utils.DAOUtils;
 import ru.reso.resocalc.Utils.Factories.EntitiesUtils;
 import ru.reso.resocalc.Utils.sqlLogging;
 import ru.reso.wp.srv.db.ResoDatabaseInvoke;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
-
 import javax.sql.rowset.WebRowSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static ru.reso.resocalc.Utils.DAOUtils.parseWebRowSet2;
+import static ru.reso.resocalc.Utils.DAOUtils.parseWebRowSet4GettingHash;
 
 public class WsCalcLogFactory implements EntitiesUtils {
     @Override
     public CalcEntity getEntityByCalcId(long calcid) {
-        return null;
+        WsCalcLogsNew2 wsCalcLogsNew2 = null;
+
+        WebRowSet rs = DAOUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_CALC_LOG_BY_ID, calcid);
+        wsCalcLogsNew2 = webRowSet2Entity(rs);
+        return wsCalcLogsNew2;
     }
 
     @Override
-    public CalcEntity webRowSet2Entity(WebRowSet rs) {
-        return null;
+    public WsCalcLogsNew2 webRowSet2Entity(WebRowSet rs) {
+        Integer temporary = 1;
+        WsCalcLogsNew2 wsCalcLogsNew2 = new WsCalcLogsNew2();
+
+        if (rs == null) {
+            return wsCalcLogsNew2;
+        }
+
+        try {
+            int count = rs.getMetaData().getColumnCount();
+
+            Logger.getLogger("").log(Level.SEVERE, "Количество записей в WsCalcLogsNew2 - " + rs.size(), "Count");
+
+            while (rs.next()) {
+                parseWebRowSet2(count, rs, new WsCalcLogsNew2(), wsCalcLogsNew2);
+                wsCalcLogsNew2.addToHashAll(parseWebRowSet4GettingHash(count, rs, new WsCalcLogsNew2()));
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to convert webRowSet to Entity", e);
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", ex);
+            }
+        }
+
+        Logger.getLogger("").log(Level.SEVERE, "ПЕЧАТАЕМ WsCalcLogsNew2", "КПАЛУМТОМПЛ");
+
+        for (String name : wsCalcLogsNew2.getHash().keySet()) {
+
+            String key = name;
+            String value = wsCalcLogsNew2.getHash().get(name);
+            Logger.getLogger("").log(Level.SEVERE, key + " ->  " + value, "Инфо");
+        }
+
+        return wsCalcLogsNew2;
+
     }
 
     @Override
@@ -64,7 +108,6 @@ public class WsCalcLogFactory implements EntitiesUtils {
         return result;
 
     }
-
 
 
 }

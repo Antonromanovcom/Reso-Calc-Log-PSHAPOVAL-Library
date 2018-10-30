@@ -25,10 +25,6 @@ public class WsCoeffCalcFactory extends EntityFactory {
     @Override
     public WsCoeff getEntityByCalcId(long calcid) {
         WsCoeff wsCoeff = null;
-        /**
-         * Здесь будет код - мы обращаемся в базу с определенным запросом,
-         *  и в конце вызываем webRowSet2WsCalcLogsNew(rs) - вот с этим могут быть сложности
-         */
 
         try {
             String sql = sqlLogging.SQL_GET_CALC_COEFF_BY_ID;
@@ -53,13 +49,11 @@ public class WsCoeffCalcFactory extends EntityFactory {
     @Override
     public WsCoeff webRowSet2Entity(WebRowSet rs) {
 
-        //WsCoeff wsCoeff = null;
 
-        //wsCoeff.setTest(DAOUtils.getClassName(wsCoeff));
         Integer iterate = 0;
         Integer step = 0;
         WsCoeff coeffList = new WsCoeff();
-        //rs.size()
+
 
         if (rs == null) {
             return coeffList;
@@ -69,38 +63,23 @@ public class WsCoeffCalcFactory extends EntityFactory {
 
             int count = rs.getMetaData().getColumnCount();
             iterate = rs.size();
-           // Logger.getLogger("").log(Level.SEVERE, "КОЛИЧЕСТВО ЗАПИСЕЙ - " + iterate, "111");
+
 
             while (rs.next()) {
                 step = step + 1;
                 WsCoeffCalc wsCoeff = new WsCoeffCalc();
-            //    Logger.getLogger("").log(Level.SEVERE, "ПРОХОДКА № - " + step, "111");
-
-               /* Logger.getLogger("").log(Level.SEVERE, "----------- ЩА ВСЕ БУДЕТ ------------------ ", "111");
-                Logger.getLogger("").log(Level.SEVERE, String.valueOf(rs.getInt(1)), "111");
-                Logger.getLogger("").log(Level.SEVERE, String.valueOf(rs.getInt(2)), "111");
-                Logger.getLogger("").log(Level.SEVERE, String.valueOf(count), "111"); */
-
 
                 for (int i = 1; i <= count; i++) {
-
-                    //Logger.getLogger("").log(Level.SEVERE, String.valueOf(rs.getBigDecimal(i)), "111");
 
                     ResultSetMetaData rsmd = rs.getMetaData();
                     int type = rsmd.getColumnType(i);
                     String fieldName = rsmd.getColumnName(i);
 
-
-           //         Logger.getLogger("").log(Level.SEVERE, "ИЩЕМ ПОЛЕ  - " + fieldName + " в классе", "111");
-
                     if (DAOUtils.searchInClassFields(new WsCoeffCalc(), fieldName)) {
 
-                //        Logger.getLogger("").log(Level.SEVERE, "НАШЛИ ПОЛЕ - " + fieldName + " в классе", "111");
-                        Integer fieldLocalType = DAOUtils.getLocalFieldType(new WsCoeffCalc(), fieldName); // Мы нашли и определили тип поля анализируя поля в классе
-                //        Logger.getLogger("").log(Level.SEVERE, "Мы определили тип поля - " + String.valueOf(fieldLocalType), "111");
-                        FieldUtils.writeField(wsCoeff, "test", "1451139", true);
 
-                        //calcLog.setNotapplyspecprogdiscount(rs.getString("NOTAPPLYSPECPROGDISCOUNT"));
+                        Integer fieldLocalType = DAOUtils.getLocalFieldType(new WsCoeffCalc(), fieldName); // Мы нашли и определили тип поля анализируя поля в классе
+                        FieldUtils.writeField(wsCoeff, "test", "1451139", true);
 
                         /** ...тип переменной мы определили ранее. Теперь нам надо по определенному типу произвести соответствующеесчитывание из ResulSet'а
                          *     rs.getТИП(х).
@@ -121,13 +100,11 @@ public class WsCoeffCalcFactory extends EntityFactory {
 
                             default:
                                 FieldUtils.writeField(wsCoeff, DAOUtils.getRealFieldName(new WsCoeffCalc(), fieldName), null, true);
-                               // this.addToHash(wsCoeff, fieldName, "null");
                                 break;
                         }
                     }
-
-            //        Logger.getLogger("").log(Level.SEVERE, "ТИП в РОУСЕТЕ- " + String.valueOf(type), "111");
                 }
+
                 coeffList.getCoeffCalcList().add(wsCoeff);
                 this.addToHash(coeffList, String.valueOf(rs.getInt("COEFID")), String.valueOf(rs.getDouble("VALUE")));
             }
@@ -143,21 +120,17 @@ public class WsCoeffCalcFactory extends EntityFactory {
         }
 
 
-   //     Logger.getLogger("").log(Level.SEVERE, "Ща будем печатать наш ХэшМеп", "Инфо");
+
 
         for (String name : coeffList.getHash().keySet()) {
 
             String key = name;
             String value = coeffList.getHash().get(name);
-            //System.out.println(key + " -  " + value);
-       //     Logger.getLogger("").log(Level.SEVERE, key + " -  " + value, "Инфо");
         }
 
-   //     Logger.getLogger("").log(Level.SEVERE, "А теперь распечатаем получившийся Лист", "Инфо");
-
         for (WsCoeffCalc temp : coeffList.getCoeffCalcList()) {
-         //   System.out.println(temp);
-       //     Logger.getLogger("").log(Level.SEVERE, temp.getCalcid() + " -  " + temp.getCoefid() + " - " + temp.getValue() + " - " + temp.getTest(), "Инфо");
+            System.out.println(temp);
+            Logger.getLogger("").log(Level.SEVERE, temp.getCalcid() + " -  " + temp.getCoefid() + " - " + temp.getValue() + " - " + temp.getTest(), "Инфо");
         }
 
 

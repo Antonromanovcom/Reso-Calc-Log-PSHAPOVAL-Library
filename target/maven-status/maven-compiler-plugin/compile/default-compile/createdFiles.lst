@@ -10,6 +10,7 @@ ru\reso\resocalc\Service\Utils.class
 ru\reso\resocalc\Service\ComplexCompair.class
 ru\reso\resocalc\Utils\Factories\ConcreteFactories\DriverFactory.class
 ru\reso\resocalc\Entity\MyStmtParamList.class
+ru\reso\resocalc\Entity\WsCalcLogsNew2.class
 ru\reso\resocalc\Utils\WsLogDictonary$CalcCoeff.class
 ru\reso\resocalc\Entity\ComparedParam.class
 ru\reso\resocalc\Entity\Unit.class
@@ -22,6 +23,7 @@ ru\reso\resocalc\Utils\WsLogDictonary$CalcRequest.class
 ru\reso\resocalc\Entity\WsCoeffCalc.class
 ru\reso\resocalc\Service\Factories\ConcreteFactories\WsCoeffCalcFactory.class
 ru\reso\resocalc\Service\DBConnection.class
+ru\reso\resocalc\Utils\Factories\ConcreteFactories\WsCoeffCalcFactory2.class
 ru\reso\resocalc\Entity\WsBonusUnit.class
 ru\reso\resocalc\Entity\WsCalcLogsNew.class
 ru\reso\resocalc\Entity\WsPartner.class

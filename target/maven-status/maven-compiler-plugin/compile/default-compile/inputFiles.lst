@@ -21,6 +21,7 @@ D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Utils\Factories\ConcreteFactories\DriverFactory.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\WsDriver.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\CalcEntity.java
+D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\WsCalcLogsNew2.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Service\Utils.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\ComparedParam.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\WsCoeffCalc.java
@@ -28,6 +29,7 @@ D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Utils\aORM.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Utils\Factories\ConcreteFactories\WsCalcLogFactory.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Service\FileLog.java
+D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Utils\Factories\ConcreteFactories\WsCoeffCalcFactory2.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\VarientType.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Entity\PartnerUnit.java
 D:\Anton\Coding\RESO COMPARATOR\ResoCalcLog\1.1 (trying to configure Maven)\src\main\java\ru\reso\resocalc\Utils\Factories\ConcreteFactories\CommonLogsFactory.java

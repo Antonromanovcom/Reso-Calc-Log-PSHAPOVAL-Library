@@ -14,6 +14,7 @@ import ru.reso.resocalc.Service.FileLog;
 import ru.reso.wp.srv.db.ResoDatabaseInvoke;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
+
 import javax.sql.rowset.WebRowSet;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -462,6 +463,46 @@ public class DAOUtils {
         return hash;
     }
 
+    public static LinkedHashMap<String, String> parseWebRowSet4GettingHash4Coeffs(Integer count, WebRowSet rs, Object obj) throws IllegalAccessException {
+
+        LinkedHashMap<String, String> hash = new LinkedHashMap<>();     //Стринговый хэш всего объекта для сравнения
+
+        try {
+            for (int i = 1; i <= count; i++) {
+
+                ResultSetMetaData rsmd = null;
+                rsmd = rs.getMetaData();
+                String fieldName = rsmd.getColumnName(i);
+
+
+                if (DAOUtils.searchInClassFields(obj, fieldName)) { // если нашли поле в классе, то...
+                    Integer fieldLocalType = DAOUtils.getLocalFieldType(obj, fieldName); // определяем тип поля
+
+                    switch (fieldLocalType) { // в зависимости от определенного локального типа пишем в класс через рефлексию ...
+                        case Types.DOUBLE:
+                            hash.put(rs.getMetaData().getColumnName(i), String.valueOf(rs.getDouble(i)));
+                            break;
+
+                        case Types.BIGINT:
+                            hash.put(rs.getMetaData().getColumnName(i), String.valueOf(rs.getLong(i)));
+                            break;
+
+                        case Types.VARCHAR:
+                            hash.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+                            break;
+
+                    }
+                }
+
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hash;
+    }
+
     public static String dateToString(java.sql.Date date) {
 
         String dateToString = "";
@@ -484,22 +525,22 @@ public class DAOUtils {
 
         String json = "";
 
-    try {
+        try {
 
-        ObjectMapper mapper = new ObjectMapper();
-        json = mapper.writeValueAsString(map);
-       // Logger.getLogger("").log(Level.SEVERE, "Без Претти-Принтера:   " + json, "аааа");
-        json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
-       // Logger.getLogger("").log(Level.SEVERE, "С Претти-Принтером:   " + json, "аааа");
+            ObjectMapper mapper = new ObjectMapper();
+            json = mapper.writeValueAsString(map);
+            // Logger.getLogger("").log(Level.SEVERE, "Без Претти-Принтера:   " + json, "аааа");
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+            // Logger.getLogger("").log(Level.SEVERE, "С Претти-Принтером:   " + json, "аааа");
 
 
-    } catch (JsonGenerationException e) {
-        e.printStackTrace();
-    } catch (JsonMappingException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return json;
     }

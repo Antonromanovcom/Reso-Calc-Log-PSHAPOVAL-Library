@@ -245,6 +245,8 @@ public class ComplexCompair {
         return result;
     }
 
+
+
     public static LinkedHashMap<String, ComparedParam> getFullCompareNew(CalcEntity calcEntity1st, CalcEntity calcEntity2d) {
 
         LinkedHashMap<String, ComparedParam> result = new LinkedHashMap<>();
