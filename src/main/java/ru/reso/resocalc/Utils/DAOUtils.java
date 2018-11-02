@@ -10,12 +10,16 @@ import ru.reso.resocalc.Entity.MyStmtParamList;
 import ru.reso.resocalc.Entity.Interfaces.Unit;
 import ru.reso.resocalc.Service.DBConnection;
 import ru.reso.resocalc.Service.FileLog;
+import ru.reso.wp.srv.ResoObject;
+import ru.reso.wp.srv.config.base.ConfigLoader;
+import ru.reso.wp.srv.consts.ResoSrvTypeConsts;
 import ru.reso.wp.srv.db.ResoDatabaseInvoke;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
 import javax.sql.rowset.WebRowSet;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.sql.Connection;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -32,7 +36,7 @@ import java.util.logging.Logger;
  *
  * Основные методы-утилиты для работы с Энтити, а так же необходимые фабрикам. Основные типовые обработчики вынесены сюда.
  */
-public class DAOUtils {
+public class DAOUtils extends ResoObject {
 
     /**
      * Получаем имя класса из Объекта
@@ -310,6 +314,7 @@ public class DAOUtils {
      * @return
      */
     public static WebRowSet getWebRowSetByCalcId(String userSQL, long calcid) {
+    //public WebRowSet getWebRowSetByCalcId(String userSQL, long calcid) {
 
         WebRowSet rs = null;
 
@@ -317,6 +322,9 @@ public class DAOUtils {
             String sql = userSQL;
             StmtParamList paramList = new StmtParamList();
             paramList.add(new StmtParam(Types.BIGINT, calcid));
+
+       //     Connection conn = this.resobj_ResoDBConnection.getConnectionInit(ResoSrvTypeConsts.TDataBase.osago);
+
             DBConnection conn = new DBConnection();
             String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
             rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
