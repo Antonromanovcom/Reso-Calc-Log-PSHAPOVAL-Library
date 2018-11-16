@@ -9,7 +9,7 @@ import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
 import ru.reso.resocalc.Entity.MyStmtParamList;
 import ru.reso.resocalc.Entity.Interfaces.Unit;
 import ru.reso.resocalc.Service.DBConnection;
-import ru.reso.resocalc.Service.FileLog;
+import ru.reso.resocalc.Service.DBConnectionLocal;
 import ru.reso.wp.srv.ResoObject;
 import ru.reso.wp.srv.config.base.ConfigLoader;
 import ru.reso.wp.srv.consts.ResoSrvTypeConsts;
@@ -19,10 +19,7 @@ import ru.reso.wp.srv.db.models.StmtParamList;
 import javax.sql.rowset.WebRowSet;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
@@ -36,7 +33,13 @@ import java.util.logging.Logger;
  *
  * Основные методы-утилиты для работы с Энтити, а так же необходимые фабрикам. Основные типовые обработчики вынесены сюда.
  */
-public class DAOUtils extends ResoObject {
+//public class DAOUtils {
+    public class DAOUtils extends ResoObject {
+
+
+    public DAOUtils() {
+        super(ResoSrvTypeConsts.TWorkMode.PRODUCTION, ResoSrvTypeConsts.TDataBase.OSAGO);
+    }
 
     /**
      * Получаем имя класса из Объекта
@@ -80,124 +83,6 @@ public class DAOUtils extends ResoObject {
         return result;
     }
 
-
-    /**
-     * Уникальный по сути метод. Парсер. Мы даем calcid, Объект (Энтити), в который будем парсить и SQL-запрос. И он нам возвращаем список параметров
-     * в зависимости от того, какие поля есть в классе, сам подбирая типы данных. то есть он соотносит поля в запросе и поля в классе. Через Рефлексию.
-     *
-     * Так же он может сам генерить запросы. Но пока не все.
-     *
-     * На самом деле эта фигня написана только для WsCalcLog. А для механизма сравнения это не нужно. В следующей итерации (в следующем коммите) удалим это....
-     *
-     * @param sql
-     * @param cls
-     * @param calcid
-     * @return
-     */
-    public static StmtParamList paramListGenerator2(String sql, Object cls, Long calcid) {
-
-
-        FileLog fileLog = new FileLog();
-        Long baseCalcId = 122865290L; // просто временный id, чтобы хоть как-то обратиться к табличке. На самом деле надо все выкачивать и все (*), и убрать это в будущем.
-        StmtParamList paramList = new StmtParamList();
-        MyStmtParamList myParamList = new MyStmtParamList(); // парамлист, куда мы будем закачивать параметры
-        String params = "";
-
-        try {
-
-            String sql1 = sqlLogging.SQL_GET_CALC_LOG_BY_ID;
-            StmtParamList paramList1 = new StmtParamList();
-
-            paramList1.add(new StmtParam(Types.BIGINT, baseCalcId));
-            DBConnection conn = new DBConnection();
-            String rsStr = conn.prepareStatementExecuteQuery(sql1, paramList1); // выкачивакем табличку, чтобы бегать по ее полям.
-            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
-
-
-            // ----------------------------------- БЛОК ПРОВЕРКИ И ПАРСИНГА RS ----------------------------------------
-
-            if (rs != null) {
-                while (rs.next()) {
-                    ResultSetMetaData rsmd = rs.getMetaData();
-                    Logger.getLogger("").log(Level.SEVERE, "МЫ В НОВОМ ПАРАМЛИСТ-ГЕНЕРАТОРЕ-2", "1111");
-                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                        int type = rsmd.getColumnType(i); //Оракл-тип (данных) текущего поля
-
-                        // Определяем есть ли такое поле (на котором мы сейчас в результсете (rs.next)) вообще. Такое - в смысле с таким же именем
-                        Boolean isFound = searchInClassFields(cls, rsmd.getColumnName(i));
-
-                        int typeForParamList = 0;
-
-                        // Если поле нашли, тогда надо проверить его тип и сконвертить Оракл тип к Java типу
-                        if (isFound) {
-                            switch (type) {
-                                case Types.NUMERIC:
-
-                                    /**Теперь надо сконвертить тип поля из класса в тип поля SQL. Связано это с тем, что SQL возвращает везде NUMERIC,
-                                     * А в классах есть и long, и double, и integer.
-                                     */
-                                    //-*     typeForParamList = getLocalFieldType(wscalclog, rsmd.getColumnName(i));
-                                    //-*     myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.NUMERIC)));
-                                    //  insertSQL = insertSQL + rsmd.getColumnName(i) + ", ";
-                                    //  updateSQL = updateSQL + rsmd.getColumnName(i) + "=?, ";
-
-//                                    params = params + "?,";
-                                    //Logger.getLogger("").log(Level.SEVERE, "Мы ставим тип - прошли проверку на ноль и рс.некст", "1111");
-                                    // Ищем поле с таким именем в классе
-                                    //-*      paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
-                                    break;
-
-                                case Types.VARCHAR:
-
-                                    //-*      typeForParamList = getLocalFieldType(wscalclog, rsmd.getColumnName(i));
-                                    //-*      paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
-                                    //-*   myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.VARCHAR)));
-                                    params = params + "?,";
-                                    //   insertSQL = insertSQL + rsmd.getColumnName(i) + ", ";
-                                    //   updateSQL = updateSQL + rsmd.getColumnName(i) + "=?, ";
-                                    break;
-                                case Types.TIMESTAMP:
-
-                                    //-*   typeForParamList = getLocalFieldType(wscalclog, rsmd.getColumnName(i));
-                                    //-*    paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
-                                    //-*    myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.TIMESTAMP)));
-                                    params = params + "?,";
-                                    //    insertSQL = insertSQL + rsmd.getColumnName(i) + ", ";
-                                    //    updateSQL = updateSQL + rsmd.getColumnName(i) + "=?, ";
-                                    break;
-                            }
-                        }
-                    }
-
-
-                    //  insertSQL = StringUtils.removeEnd(insertSQL, ", ");
-                    //   updateSQL = StringUtils.removeEnd(updateSQL, ", ");
-                    //    params = StringUtils.removeEnd(params, ",");
-                    //   insertSQL = insertSQL + ") values(" + params + ")";
-                    //   updateSQL = updateSQL + " where CALCID = " + String.valueOf(calcid);
-                }
-                //paramList.add(new StmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i))));
-                //myParamList.add(new MyStmtParam(typeForParamList, searchInClassFieldsAndGet(wscalclog, rsmd.getColumnName(i)), rsmd.getColumnName(i), fieldTypeToStr(Types.TIMESTAMP)));
-            }
-
-            try {
-                fileLog.saveAllReportPanels4("D:/log777_2.txt", paramList); // логгируем в файл
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                fileLog.saveAllReportPanels3(myParamList);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        } catch (SQLException e) {
-            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
-        }
-
-        return paramList;
-    }
 
     // Количество записей в РезультСете
     public static int resultSetCount(WebRowSet resultSet) throws SQLException {
@@ -313,30 +198,46 @@ public class DAOUtils extends ResoObject {
      * @param calcid
      * @return
      */
-    public static WebRowSet getWebRowSetByCalcId(String userSQL, long calcid) {
-    //public WebRowSet getWebRowSetByCalcId(String userSQL, long calcid) {
+    public WebRowSet getWebRowSetByCalcId(String userSQL, long calcid) {
 
-        WebRowSet rs = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        WebRowSet wrs = null;
+
+        conn = resobj_ResoDBConnection.getConnectionInit(ResoSrvTypeConsts.TDataBase.PRIMARY);
 
         try {
             String sql = userSQL;
             StmtParamList paramList = new StmtParamList();
             paramList.add(new StmtParam(Types.BIGINT, calcid));
 
-       //     Connection conn = this.resobj_ResoDBConnection.getConnectionInit(ResoSrvTypeConsts.TDataBase.osago);
+           // conn = resobj_ResoDBConnection.getConnectionOsago();
+            rs = ResoDatabaseInvoke.prepareStatementExecuteQuery(conn, sql, paramList);
+            String rsStr = ResoDatabaseInvoke.encodeWebRowSet(rs);
 
-            DBConnection conn = new DBConnection();
-            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
-            rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+            wrs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
 
         } catch (SQLException e) {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
         }
+        finally {
+            try {
+                    if (rs != null)
+                        rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
 
-        return rs;
+        return wrs;
     }
-
 
     /**
      * Вытаскиваем количество записей по запросу и calc id
@@ -346,29 +247,67 @@ public class DAOUtils extends ResoObject {
      */
     public Integer getReordsCountByIdAndSQL(String sql, long calcid) {
         Integer result = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        WebRowSet wrs = null;
 
+        conn = resobj_ResoDBConnection.getConnectionInit(ResoSrvTypeConsts.TDataBase.PRIMARY);
+       // conn = resobj_ResoDBConnection.getConnectionOsago();
         try {
 
             StmtParamList paramList = new StmtParamList();
             paramList.add(new StmtParam(Types.BIGINT, calcid));
-            DBConnection conn = new DBConnection();
-            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
-            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
 
-            if (rs == null) {
+            rs = ResoDatabaseInvoke.prepareStatementExecuteQuery(conn, sql, paramList);
+            String rsStr = ResoDatabaseInvoke.encodeWebRowSet(rs);
+            wrs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+
+            if (wrs == null) {
                 return null;
             } else {
 
-                if (rs.next()) {
-                    result = rs.getInt("COUNT");
+                if (wrs.next()) {
+                    result = wrs.getInt("COUNT");
                 }
 
             }
         } catch (SQLException e) {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
         }
+      //  finally {
+          //  try {
+            //    if (wrs != null)
+         //           wrs.close();
+          //  } catch (SQLException e) {
+           //     e.printStackTrace();
+           // } finally {
+             //   try {
+             //       if (rs != null)
+             //           rs.close();
+             //   } catch (SQLException e) {
+             //       e.printStackTrace();
+              //  } finally {
+            //        try {
+            //            if (conn != null)
+           //             conn.close();
+           //         } catch (SQLException e) {
+          //              e.printStackTrace();
+           //         }
+          //      }
+          //  }
+      //  }
+
+
+
         return result;
     }
+
+
+    public Integer getReordsCountByIdAndSQL2(String sql, long calcid) {
+
+        return 35;
+    }
+
 
     /**
      * Моя собственная и довольно прикольная разработка. Метод парсит WebRowSet, который ему передали и пихает в переданный ему

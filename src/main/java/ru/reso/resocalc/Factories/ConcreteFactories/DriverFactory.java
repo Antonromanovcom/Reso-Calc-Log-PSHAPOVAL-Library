@@ -23,7 +23,8 @@ public class DriverFactory implements EntitiesUtils {
     public CalcEntity getEntityByCalcId(long calcid) {
 
         WsDriver drivers = null;
-        WebRowSet rs = DAOUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_DRIVERS, calcid);
+        DAOUtils daoUtils = new DAOUtils();
+        WebRowSet rs = daoUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_DRIVERS, calcid);
         drivers = webRowSet2Entity(rs);
         return drivers;
 
