@@ -1,5 +1,8 @@
 # Reso Calc Log PAVEL SHAPOVAL Library
 
-3.0 - 1.1 (trying to configure Maven)
+4.0 ONLY GLASSFISH VERSION 
+
+- TESTED LOCALLY
+- TESTAED ROMOTE
 
 

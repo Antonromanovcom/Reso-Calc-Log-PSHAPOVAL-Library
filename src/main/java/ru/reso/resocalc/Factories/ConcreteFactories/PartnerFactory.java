@@ -20,8 +20,8 @@ public class PartnerFactory implements EntitiesUtils {
     @Override
     public CalcEntity getEntityByCalcId(long calcid) {
         WsPartner partners = null;
-
-        WebRowSet rs = DAOUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_PARTNERS, calcid);
+        DAOUtils daoUtils = new DAOUtils();
+        WebRowSet rs = daoUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_PARTNERS, calcid);
         partners = webRowSet2Entity(rs);
 
         return partners;
