@@ -46,8 +46,6 @@ public  class MainFactory {
         entity1st = factory.getEntityByCalcId(calcidFirst);
         entity2d = factory.getEntityByCalcId(calcidSecond);
 
-
-
         // А тут мы вызываем соответствующий метод из ComplexCompair
         result = getFullCompareNew(entity1st, entity2d);
 

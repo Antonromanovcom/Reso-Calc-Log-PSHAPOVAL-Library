@@ -5,30 +5,28 @@ import ru.reso.resocalc.Entity.*;
 import ru.reso.resocalc.Entity.Interfaces.CalcEntity;
 import ru.reso.resocalc.Entity.SubEntities.WsBonusUnit;
 import ru.reso.resocalc.Service.DBConnection;
-import ru.reso.resocalc.Service.DBConnectionLocal;
 import ru.reso.resocalc.Utils.DAOUtils;
 import ru.reso.resocalc.Factories.EntitiesUtils;
 import ru.reso.resocalc.Utils.sqlLogging;
-import ru.reso.wp.srv.ResoObject;
-import ru.reso.wp.srv.consts.ResoSrvTypeConsts;
 import ru.reso.wp.srv.db.ResoDatabaseInvoke;
 import ru.reso.wp.srv.db.models.StmtParam;
 import ru.reso.wp.srv.db.models.StmtParamList;
 import javax.sql.rowset.WebRowSet;
-import java.sql.*;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class BonusFactory extends ResoObject implements EntitiesUtils {
+public class BonusFactory implements EntitiesUtils {
 
 
     @Override
     public CalcEntity getEntityByCalcId(long calcid) {
         WsPremium bonuses = null;
-        DAOUtils daoUtils = new DAOUtils();
 
-        WebRowSet rs = daoUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_BONUSES_BY_ID, calcid);
+        WebRowSet rs = DAOUtils.getWebRowSetByCalcId(sqlLogging.SQL_GET_BONUSES_BY_ID, calcid);
         bonuses = webRowSet2Entity(rs);
 
         return bonuses;
@@ -105,55 +103,22 @@ public class BonusFactory extends ResoObject implements EntitiesUtils {
 
         Integer result = null;
         WsPremium additionalBonuses = null;
-        Connection conn = null;
-        ResultSet rs = null;
-        WebRowSet wrs = null;
-
-        //conn = resobj_ResoDBConnection.getConnectionOsago();
-        conn = resobj_ResoDBConnection.getConnectionInit(ResoSrvTypeConsts.TDataBase.PRIMARY);
-
 
         try {
             String sql = sqlLogging.SQL_GET_NON_MATCHING_PREMIUMS;
             StmtParamList paramList = new StmtParamList();
             paramList.add(new StmtParam(Types.BIGINT, calcid1st));
             paramList.add(new StmtParam(Types.BIGINT, calcid2d));
-
-            rs = ResoDatabaseInvoke.prepareStatementExecuteQuery(conn, sql, paramList);
-            Logger.getGlobal().log(Level.WARNING, "prepareStatementExecuteQuery for BONUS FACTORY - OK" , "ITS OK");
-            String rsStr = ResoDatabaseInvoke.encodeWebRowSet(rs);
-            Logger.getGlobal().log(Level.WARNING, "encodeWebRowSet for BONUS FACTORY - OK" , "ITS OK");
-
-
-            wrs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
-            Integer iterate = wrs.size();
+            DBConnection conn = new DBConnection();
+            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
+            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+            Integer iterate = rs.size();
 
             if (iterate>0) {
-                additionalBonuses = webRowSet2Entity(wrs);
+                additionalBonuses = webRowSet2Entity(rs);
             }
         } catch (SQLException e) {
-            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection (BONUS FACTORY)", e);
-        }
-        finally {
-            try {
-                if (wrs != null)
-                    wrs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (rs != null)
-                        rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        conn.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+            Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
         }
         return additionalBonuses;
 
@@ -163,52 +128,25 @@ public class BonusFactory extends ResoObject implements EntitiesUtils {
     public String getBonusDescription(int id) {
 
         String result = null;
-        Connection conn = null;
-        ResultSet rs = null;
-        WebRowSet wrs = null;
-
-        conn = resobj_ResoDBConnection.getConnectionInit(ResoSrvTypeConsts.TDataBase.PRIMARY);
 
         try {
             String sql = sqlLogging.SQL_GET_PREMIUM_DESC_BY_ID;
             StmtParamList paramList = new StmtParamList();
             paramList.add(new StmtParam(Types.INTEGER, id));
-           // conn = resobj_ResoDBConnection.getConnectionOsago();
-            rs = ResoDatabaseInvoke.prepareStatementExecuteQuery(conn, sql, paramList);
-            String rsStr = ResoDatabaseInvoke.encodeWebRowSet(rs);
-            wrs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
+            DBConnection conn = new DBConnection();
+            String rsStr = conn.prepareStatementExecuteQuery(sql, paramList);
+            WebRowSet rs = ResoDatabaseInvoke.decodeWebRowSet(rsStr);
 
-            if (wrs == null) {
+            if (rs == null) {
                 return null;
             } else {
-                if (wrs.next()) {
-                    result = wrs.getString("DESCR");
+                if (rs.next()) {
+                    result = rs.getString("DESCR");
                 }
 
             }
         } catch (SQLException e) {
             Logger.getLogger("").log(Level.SEVERE, "Error ocurs while try to close SQL Connection", e);
-        }
-        finally {
-            try {
-                if (wrs != null)
-                    wrs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (rs != null)
-                        rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        conn.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
         }
         return result;
 
